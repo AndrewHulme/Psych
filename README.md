@@ -1,5 +1,7 @@
 # Psych Remake
 
+## Git Repository: https://github.com/AndrewHulme/Psych
+
 ## Technologies used:
   - Docker
     - for environment setup & deployment
