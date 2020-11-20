@@ -257,7 +257,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
-  bootsnap (>= 1.4.2)
+  bootsnap (>= 1.4.3)
   brakeman (~> 4.9)
   byebug
   database_cleaner
