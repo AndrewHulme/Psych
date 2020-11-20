@@ -12,7 +12,7 @@ RUN rm /etc/nginx/sites-enabled/default
 RUN curl -L https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
     && apt-get update -qq \
-    && apt-get install -y ca-certificates build-essential libpq-dev nodejs imagemagick \
+    && apt-get install -y ca-certificates build-essential libpq-dev nodejs tzdata imagemagick \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN mkdir /home/app/web
