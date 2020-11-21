@@ -4,6 +4,13 @@ This can be a nice place for explaining solutions, findings, "gotcha" and other 
 
 ## Docker
 
+- Docker Explained:
+  - containers
+  - images
+  - dockerfile
+  - docker-compose
+  - bash
+
 - The command used to create the rails app skeleton was: ```bundle exec rails new . --api --database=postgresql --skip-bundle```
   - ```bundle exec``` was necessary because we didn't have immediate access to the rails binaries from the docker container.
   - ```bundle exec``` lets us run binaries and other ruby/gem code from the command line, in the context of the directory's Gemfile.

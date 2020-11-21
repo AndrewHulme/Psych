@@ -28,7 +28,7 @@ services:
       - 'redis'
       - 'postgres'
     build: .
-    command: bash -c "bundle && bundle exec sidekiq -C config/sidekiq.yml"
+    command: bash -c "bundle && sudo chown 1000:1000 -R ./tmp && bundle exec sidekiq -C config/sidekiq.yml"
     volumes:
       - .:/home/app/web:z
       - rvm_gems:/usr/local/rvm/gems/ruby-2.6.6@backend

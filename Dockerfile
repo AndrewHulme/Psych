@@ -12,7 +12,7 @@ RUN rm /etc/nginx/sites-enabled/default
 RUN curl -L https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
     && apt-get update -qq \
-    && apt-get install -y ca-certificates build-essential libpq-dev nodejs tzdata imagemagick \
+    && apt-get install -y ca-certificates build-essential libpq-dev nodejs sudo tzdata imagemagick \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN mkdir /home/app/web
@@ -21,8 +21,7 @@ WORKDIR /home/app/web
 COPY docker/install-* /home/app/web/docker/
 RUN bash docker/install-ruby.sh
 
-RUN usermod -u 1000 app
-RUN usermod -G staff app
+RUN usermod -u 1000 -G staff,sudo app
 
 ADD docker/nginx/env.conf /etc/nginx/main.d/env.conf
 ADD docker/nginx/sites-enabled/web.conf /etc/nginx/sites-enabled/web.conf
