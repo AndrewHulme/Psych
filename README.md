@@ -70,7 +70,11 @@ To connect to the container with the application, you must run the `docker-compo
 
 To view the list of running containers, you must run the `docker-compose ps` or `docker ps`.
 
-The launched application is available at http://backend.lvh.me
+4. connect to the web container using ````docker-compose exec web bash```` and setup the databases with ```rails db:setup```.
+
+The launched application is available at http://backend.lvh.me.
+
+
 
 
 --------------------------------------------------------------------------------
