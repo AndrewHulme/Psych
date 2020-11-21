@@ -1,0 +1,45 @@
+# version: '2'
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - '80:80'
+    volumes:
+      - .:/home/app/web:z
+      - rvm_gems:/usr/local/rvm/gems/ruby-2.6.6@backend
+    env_file:
+      - docker/env.web
+    depends_on:
+      - 'postgres'
+      - 'redis'
+    tty: true
+    stdin_open: true
+  postgres:
+    image: 'postgres:9.5'
+    env_file:
+       - docker/env.postgres
+    ports:
+      - '54321:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+  sidekiq:
+    depends_on:
+      - 'redis'
+      - 'postgres'
+    build: .
+    command: bash -c "bundle && sudo chown 1000:1000 -R ./tmp && bundle exec sidekiq -C config/sidekiq.yml"
+    volumes:
+      - .:/home/app/web:z
+      - rvm_gems:/usr/local/rvm/gems/ruby-2.6.6@backend
+    env_file:
+      - 'docker/env.web'
+  redis:
+    image: 'redis:4.0.6-alpine'
+    command: 'redis-server'
+    volumes:
+      - 'redis:/var/lib/redis/data'
+volumes:
+  postgres: {}
+  redis: {}
+  rvm_gems: {}

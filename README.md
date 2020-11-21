@@ -1,5 +1,7 @@
 # Psych Remake
 
+## Git Repository: https://github.com/AndrewHulme/Psych
+
 ## Technologies used:
   - Docker
     - for environment setup & deployment
@@ -20,7 +22,6 @@
       - (https://gojek-ghost.zysk.in/how-we-use-sidekiq-to-process-background-jobs/)
   - Typescript React with Redux
     - (https://www.chadlumley.com/posts/setup-react-redux-typescript-2019-edition)
-
 
 
 ## MVP Features
@@ -52,5 +53,30 @@
 - levelling system
 - sound effects
 - collaborating with a visual artist
+
+
+## Set up a development environment
+
+1. Install [Docker](https://docs.docker.com/install/) under your system
+    - [Docker for MacOS](https://docs.docker.com/docker-for-mac/install/)
+    - [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
+    - [Docker for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+
+2. [Install Docker Compose](https://docs.docker.com/compose/install/)
+3. Go to the project directory and execute the command `docker-compose up --build`.
+Wait for the docker -compose command to complete.
+
+To connect to the container with the application, you must run the `docker-compose exec web bash`.
+
+To view the list of running containers, you must run the `docker-compose ps` or `docker ps`.
+
+4. connect to the web container using ````docker-compose exec web bash```` and setup the databases with ```rails db:setup```.
+
+The launched application is available at http://backend.lvh.me.
+
+
+
+
+--------------------------------------------------------------------------------
 
 README created with the help of https://stackedit.io/app#
