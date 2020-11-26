@@ -3,26 +3,26 @@
 ## Git Repository: https://github.com/AndrewHulme/Psych
 
 ## Technologies used:
-  - Docker
-    - for environment setup & deployment
-    - (https://docs.docker.com/get-started/)
-  - Ruby on Rails (in API mode)
-    - Action Cable
-      - websockets library, used for bidirectional connection between client and server
-      - (https://edgeguides.rubyonrails.org/action_cable_overview.html)
-      - Example of rails app using Action Cable (https://iridakos.com/programming/2019/04/04/creating-chat-application-rails-websockets)
-    - Graphql
-      - Query language
-      - (https://engineering.musefind.com/build-a-graphql-api-in-under-20-minutes-3cdaa774b786)
-      - (https://dev.to/isalevine/ruby-on-rails-graphql-api-tutorial-creating-data-with-mutations-39ab)
-      - (https://medium.com/@bruno_boehm/reactjs-ruby-on-rails-api-heroku-app-2645c93f0814)
-    - Sidekiq
-      - Background Processor
-      - (https://github.com/mperham/sidekiq)
-      - (https://gojek-ghost.zysk.in/how-we-use-sidekiq-to-process-background-jobs/)
-  - Typescript React with Redux
-    - (https://www.chadlumley.com/posts/setup-react-redux-typescript-2019-edition)
 
+- Docker
+  - for environment setup & deployment
+  - (https://docs.docker.com/get-started/)
+- Ruby on Rails (in API mode)
+  - Action Cable
+    - websockets library, used for bidirectional connection between client and server
+    - (https://edgeguides.rubyonrails.org/action_cable_overview.html)
+    - Example of rails app using Action Cable (https://iridakos.com/programming/2019/04/04/creating-chat-application-rails-websockets)
+  - Graphql
+    - Query language
+    - (https://engineering.musefind.com/build-a-graphql-api-in-under-20-minutes-3cdaa774b786)
+    - (https://dev.to/isalevine/ruby-on-rails-graphql-api-tutorial-creating-data-with-mutations-39ab)
+    - (https://medium.com/@bruno_boehm/reactjs-ruby-on-rails-api-heroku-app-2645c93f0814)
+  - Sidekiq
+    - Background Processor
+    - (https://github.com/mperham/sidekiq)
+    - (https://gojek-ghost.zysk.in/how-we-use-sidekiq-to-process-background-jobs/)
+- Typescript React with Redux
+  - (https://www.chadlumley.com/posts/setup-react-redux-typescript-2019-edition)
 
 ## MVP Features
 
@@ -43,7 +43,6 @@
   - all players see the final scoreboard at the same time
   - user, who created the game lobby, can start a new game lobby.
 
-
 ## Extra, Post-MVP Features:
 
 - chat service / chatroom
@@ -54,29 +53,37 @@
 - sound effects
 - collaborating with a visual artist
 
-
 ## Set up a development environment
 
+### Backend
+
 1. Install [Docker](https://docs.docker.com/install/) under your system
-    - [Docker for MacOS](https://docs.docker.com/docker-for-mac/install/)
-    - [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
-    - [Docker for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+
+   - [Docker for MacOS](https://docs.docker.com/docker-for-mac/install/)
+   - [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
+   - [Docker for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 
 2. [Install Docker Compose](https://docs.docker.com/compose/install/)
+
 3. Go to the project directory and execute the command `docker-compose up --build`.
-Wait for the docker -compose command to complete.
+   Wait for the docker -compose command to complete.
 
 To connect to the container with the application, you must run the `docker-compose exec web bash`.
 
 To view the list of running containers, you must run the `docker-compose ps` or `docker ps`.
 
-4. connect to the web container using ````docker-compose exec web bash```` and setup the databases with ```rails db:setup```.
+4. connect to the web container using `docker-compose exec web bash` and setup the databases with `rails db:setup`.
 
 The launched application is available at http://backend.lvh.me.
 
+### Frontend
 
+1. Navigate to client folder from main folder \$ cd client
+2. Install npm if you don't already have it
+3. Install all dependencies \$ npm install
+4. Start the server \$ npm start
+5. Navigate to http://localhost:3000 in your browser
 
-
---------------------------------------------------------------------------------
+---
 
 README created with the help of https://stackedit.io/app#
