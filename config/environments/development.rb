@@ -6,8 +6,6 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
-  config.hosts << "backend.lvh.me"
-
   # Do not eager load code on boot.
   config.eager_load = false
 
@@ -52,5 +50,4 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.hosts << ENV["HOSTNAME"]
-  # config.hosts << "www.example.com"
 end
