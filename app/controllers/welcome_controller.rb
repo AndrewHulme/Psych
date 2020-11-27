@@ -1,6 +1,4 @@
-class WelcomeController < ActionController::Base
-  layout "application"
-
+class WelcomeController < ApplicationViewController
   def index
   end
 end

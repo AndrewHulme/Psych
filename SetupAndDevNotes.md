@@ -33,6 +33,8 @@ setting up cookies/sessions
 
 aim is to be able to identify users via websockets without signing them in.
 
+we can store the visitor key in local storage or sth...
+
 will need the actioncable js package later on for the front end https://www.npmjs.com/package/actioncable
 
 https://pragmaticstudio.com/tutorials/rails-session-cookies-for-api-authentication
