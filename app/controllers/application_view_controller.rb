@@ -1,5 +1,5 @@
 class ApplicationViewController < ActionController::Base
-  include CookieHelper
+  include AuthHelper
 
   layout "application"
 end
