@@ -4,14 +4,9 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createStore } from "redux";
+import allReducers from "./reducers";
 
-// STORE -> GLOBALIZED STATE
-
-// ACTION INCREMENT
-
-// REDUCER
-
-// DISPATCH - EXECUTES ACTION
+const store = createStore(allReducers);
 
 ReactDOM.render(
   <React.StrictMode>
