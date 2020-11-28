@@ -1,4 +1,6 @@
-const counterReducer = (state = 0, action) => {
+import { IAction } from "../actions/interfaces";
+
+const counterReducer = (state = 0, action: IAction) => {
   switch (action.type) {
     case "INCREMENT":
       return state + 1;

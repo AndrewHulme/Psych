@@ -1,4 +1,6 @@
-const loggedReducer = (state = false, action) => {
+import { IAction } from "../actions/interfaces";
+
+const loggedReducer = (state = false, action: IAction) => {
   switch (action.type) {
     case "SIGN_IN":
       return !state;
