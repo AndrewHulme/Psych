@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# bundle exec pry-remote -w && rails restart
+bundle exec pry-remote -w
