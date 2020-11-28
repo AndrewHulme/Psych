@@ -1,0 +1,64 @@
+alias user1="user1"
+alias browser1="browser1"
+alias user2="user2"
+alias browser2="browser2"
+alias server="server"
+alias backend="backend"
+alias database="database (BE)"
+
+
+user1->browser1: "Goes onto website"
+user1->browser1: "Clicks 'Start A Game'"
+user1->browser1: "Chooses category which shows description"
+user1->browser1: "Clicks 'Play'"
+
+user1->user2: "Tells password"
+
+user2->browser2: "Goes onto website"
+user2->browser2: "Clicks 'Join A Game'"
+user2->browser2: "Inputs password"
+user2->browser2: "Successfully joins game"
+
+user1->browser1: "Starts game when more than 3 ppl have joined"
+
+# START OF ROUND
+
+backend-->user1: "New Screen: Starts a Round and sends sentence"
+backend-->user2: "New Screen: Starts a Round and sends sentence"
+
+user1->browser1: "Submits response for the round"
+backend-->user2: "Notification that user1 has submitted an answer"
+
+user2->browser2: "Submits response for the round"
+backend-->user1: "Notification that user2 has submitted an answer"
+
+backend-->browser1: "Notification that all users have submitted answers"
+backend-->browser2: "Notification that all users have submitted answers"
+
+browser1-->user1: "New Screen: Show submissions of the round"
+browser2-->user2: "New Screen: Show submissions of the round"
+
+user1->browser1: "Votes on favourite submission for the round"
+backend-->user2: "Notification that user1 has voted"
+
+user2->browser2: "Votes on favourite submission for the round"
+backend-->user1: "Notification that user2 has voted"
+
+backend-->browser1: "Notification: users have voted + updated scores data"
+backend-->browser2: "Notification: users have voted + updated scores data"
+
+browser1-->user1: "New Screen: Show updated scores"
+browser2-->user2: "New Screen: Show updated scores"
+
+user1->browser1: "Marks themselves as ready for the next round"
+backend-->user2: "Notification that user1 is ready for the next round"
+
+user2->browser2: "Marks themselves as ready for the next round"
+backend-->user1: "Notification that user2 is ready for the next round"
+
+# END OF ROUND
+
+# AT THIS POINT, NUMBER OF COMPLETED ROUNDS INCREMENTS BY 1
+# GAME CONTINUES UNTIL ROUND LIMIT HAS BEEN REACHED
+
+
