@@ -66,6 +66,9 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include TestAuthHelper, type: :request
 
+  config.include Requests, type: :request
+  config.include Requests::JsonHelpers, type: :request
+
   config.before(:context, type: :request) do
     host! ENV['HOSTNAME']
   end
