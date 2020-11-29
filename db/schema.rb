@@ -10,16 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_27_003627) do
+ActiveRecord::Schema.define(version: 2020_11_29_200622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.string "password"
+    t.integer "round_count", default: 3
+    t.integer "status", default: 0, null: false
+    t.bigint "host_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["host_id"], name: "index_rooms_on_host_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "visitor_key"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "room_id"
+    t.index ["room_id"], name: "index_users_on_room_id"
     t.index ["visitor_key"], name: "index_users_on_visitor_key", unique: true
   end
 
+  add_foreign_key "rooms", "users", column: "host_id"
+  add_foreign_key "users", "rooms"
 end
