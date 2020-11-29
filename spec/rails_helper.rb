@@ -73,6 +73,14 @@ RSpec.configure do |config|
   config.before(:each, type: :request) do
     delete_auth_cookies
   end
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.after(:suite) do
+    DatabaseCleaner.clean
+  end
 end
 
 Shoulda::Matchers.configure do |config|
