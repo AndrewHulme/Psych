@@ -7,6 +7,10 @@
 - Docker
   - for environment setup & deployment
   - (https://docs.docker.com/get-started/)
+  
+- TypeScript, React and Redux
+  - (https://www.chadlumley.com/posts/setup-react-redux-typescript-2019-edition)
+  
 - Ruby on Rails (in API mode)
   - Action Cable
     - websockets library, used for bidirectional connection between client and server
@@ -21,8 +25,7 @@
     - Background Processor
     - (https://github.com/mperham/sidekiq)
     - (https://gojek-ghost.zysk.in/how-we-use-sidekiq-to-process-background-jobs/)
-- Typescript React with Redux
-  - (https://www.chadlumley.com/posts/setup-react-redux-typescript-2019-edition)
+
 
 ## MVP Features
 
