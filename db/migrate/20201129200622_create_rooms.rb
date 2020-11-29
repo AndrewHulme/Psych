@@ -10,6 +10,8 @@ class CreateRooms < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
+    add_index :rooms, :password, unique: true
+
     add_reference :users, :room, foreign_key: true
   end
 end

@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2020_11_29_200622) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["host_id"], name: "index_rooms_on_host_id"
+    t.index ["password"], name: "index_rooms_on_password", unique: true
   end
 
   create_table "users", force: :cascade do |t|

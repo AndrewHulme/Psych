@@ -19,6 +19,6 @@
 #
 FactoryBot.define do
   factory :user do
-    visitor_key { "MyString" }
+    visitor_key { SecureRandom.hex }
   end
 end

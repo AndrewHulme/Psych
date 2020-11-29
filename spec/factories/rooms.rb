@@ -13,7 +13,8 @@
 #
 # Indexes
 #
-#  index_rooms_on_host_id  (host_id)
+#  index_rooms_on_host_id   (host_id)
+#  index_rooms_on_password  (password) UNIQUE
 #
 # Foreign Keys
 #
@@ -21,10 +22,10 @@
 #
 FactoryBot.define do
   factory :room do
-    name { "MyString" }
-    password { "MyString" }
-    round_count { 1 }
-    status { 1 }
-    host_id { nil }
+    association :host, factory: :user, strategy: :create
+    name { Faker::Restaurant.name }
+    password { "pw_#{SecureRandom.hex}" }
+    round_count { 3 }
+    status { 0 }
   end
 end

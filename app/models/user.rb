@@ -18,7 +18,7 @@
 #  fk_rails_...  (room_id => rooms.id)
 #
 class User < ApplicationRecord
-  belongs_to :room
+  belongs_to :room, optional: true
 
   validates :visitor_key, uniqueness: { case_sensitive: false }, allow_nil: true
 end
