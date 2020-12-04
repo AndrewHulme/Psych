@@ -25,5 +25,5 @@ class User < ApplicationRecord
   belongs_to :room, optional: true
 
   validates :visitor_key, uniqueness: { case_sensitive: false }, allow_nil: true
-  validates :name, length: { maximum: MIN_USERNAME_LENGTH, maximum: MAX_USERNAME_LENGTH }
+  validates :name, length: { minimum: MIN_USERNAME_LENGTH, maximum: MAX_USERNAME_LENGTH }
 end
