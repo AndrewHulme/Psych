@@ -7,4 +7,9 @@ module TestAuthHelper
   def current_user
     @current_user ||= User.find_by(visitor_key: cookies[:visitor_key])
   end
+
+  def create_user_session
+    get "/"
+    User.last
+  end
 end

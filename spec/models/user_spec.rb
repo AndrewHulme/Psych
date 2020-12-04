@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id          :bigint           not null, primary key
-#  name        :string
+#  name        :string           default("Player")
 #  visitor_key :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

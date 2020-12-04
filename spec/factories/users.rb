@@ -3,7 +3,7 @@
 # Table name: users
 #
 #  id          :bigint           not null, primary key
-#  name        :string
+#  name        :string           default("Player")
 #  visitor_key :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -21,5 +21,6 @@
 FactoryBot.define do
   factory :user do
     visitor_key { SecureRandom.hex }
+    name { Faker::Name.name }
   end
 end
