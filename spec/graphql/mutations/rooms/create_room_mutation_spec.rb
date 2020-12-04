@@ -16,10 +16,13 @@ RSpec.describe Mutations::Rooms::CreateRoomMutation, type: :request do
 
       res = json_response["data"]["createRoom"]
 
-      expect(res["room"]["id"].to_i).to eq(1)
+      expect(res["room"]["id"].to_i).to eq(Room.first.id)
       expect(res["room"]["name"]).to eq(name)
       expect(res["room"]["password"]).to eq(password)
       expect(res["room"]["status"]).to eq("awaiting_players")
+
+      expect(res["room"]["users"].count).to eq(1)
+      expect(res["room"]["users"].first["id"].to_i).to eq(User.last.id)
 
       expect(res["status"]).to eq("ok")
       expect(res["errors"]).to eq([])
@@ -55,6 +58,10 @@ RSpec.describe Mutations::Rooms::CreateRoomMutation, type: :request do
             password
             roundCount
             status
+            users {
+              id
+              name
+            }
           }
           status
           errors

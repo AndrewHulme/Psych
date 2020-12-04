@@ -1,6 +1,8 @@
 module Mutations
   module Rooms
     class CreateRoomMutation < BaseMutation
+      description "Allow current user to create a room (game lobby)"
+
       field :room, Types::ObjectTypes::RoomType, null: true
 
       argument :name, String, required: false

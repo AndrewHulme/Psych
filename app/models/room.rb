@@ -39,6 +39,7 @@ class Room < ApplicationRecord
 
   before_validation :generate_name, on: :create
   before_validation :generate_password, on: :create
+  after_create :add_host_to_users
   after_create :set_status
 
   def set_status
@@ -46,12 +47,16 @@ class Room < ApplicationRecord
   end
 
   def status_check
-    return :awaiting_players if users.count < MIN_PLAYER_COUNT
+    return :ready_to_start if users.count >= MIN_PLAYER_COUNT
 
-    :draft
+    :awaiting_players
   end
 
   private
+
+  def add_host_to_users
+    users << host
+  end
 
   def generate_name
     return unless self.name.blank?

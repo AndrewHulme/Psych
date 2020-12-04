@@ -16,5 +16,9 @@ module Mutations
     def response_errors(errors_hash)
       { status: "failed" }.merge(errors_hash)
     end
+
+    def response_error(message)
+      { status: "failed", errors: [message] }
+    end
   end
 end
