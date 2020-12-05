@@ -4,6 +4,7 @@ import { Button, Typography, Container } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { increment, decrement } from "./actions/index";
 import { IRootState } from "./store/index";
+import Header from "./components/header";
 // import "./App.css";
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
   // const dispatch = useDispatch();
 
   return (
-    <Container maxWidth="sm">
+    <React.Fragment>
+      <Header />
       <Typography variant="h3" gutterBottom>
         Psych?!
       </Typography>
@@ -26,7 +28,7 @@ function App() {
       <Button color="primary" variant="outlined">
         START A GAME
       </Button>
-    </Container>
+    </React.Fragment>
   );
 }
 
