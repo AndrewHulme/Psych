@@ -7,20 +7,24 @@ import { IRootState } from "./store/index";
 // import "./App.css";
 
 function App() {
-  const counter = useSelector((state: IRootState) => state.counter);
-  const dispatch = useDispatch();
+  // const counter = useSelector((state: IRootState) => state.counter);
+  // const dispatch = useDispatch();
 
   return (
     <Container maxWidth="sm">
       <Typography variant="h3" gutterBottom>
-        Psych?! {counter}
+        Psych?!
       </Typography>
 
-      <button onClick={() => dispatch(increment())}>+</button>
-      <button onClick={() => dispatch(decrement)}>-</button>
+      {/* <button onClick={() => dispatch(increment())}>+</button> */}
+      {/* <button onClick={() => dispatch(decrement)}>-</button> */}
 
       <Button color="primary" variant="outlined">
-        Play
+        JOIN A GAME
+      </Button>
+
+      <Button color="primary" variant="outlined">
+        START A GAME
       </Button>
     </Container>
   );
