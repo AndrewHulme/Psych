@@ -49,3 +49,56 @@ https://guides.rubyonrails.org/security.html#sessions
 https://www.npmjs.com/package/actioncable
 https://stackoverflow.com/questions/38617791/client-javascript-for-action-cable-rails-5
 https://stackoverflow.com/questions/598933/how-do-i-change-the-default-www-example-com-domain-for-testing-in-rails
+
+
+make tests
+  - user can create a room
+    - status => :not_enough_players
+  - user can join a room with valid password
+  - user can't join room with invalid password
+  - MIN_PLAYER_COUNT amount of players join the room and status updates to :waiting_to_start
+  - host user starts game when there are enough players
+  - host user can't start game when there are not enough players
+
+
+
+creating a room
+  gql mutation to create a room.
+  response sends back a room (or error message)
+  then front end should subscribe to the room channel, using the room id
+  connection should now be established
+
+
+
+game flow: required model changes
+
+Note: System should be designed from a game-first perspective, not a history-first perspective. Prioritise the game-flow first and foremost, and the storing of game history second.
+
+  - User
+    has_many :answers
+    has_many :votes
+    belongs_to :room, foreign_key: :room_id
+
+  - Room
+    has_many :rounds
+
+  - Round
+    belongs_to :room
+    belongs_to :question
+    has_many :answers
+
+  - Question
+    has_many :rounds
+    has_many :answers
+
+  - Answers
+    belongs_to :user
+    belongs_to :round
+    belongs_to :question
+    has_many :votes
+
+  - Vote
+    belongs_to :user
+    belongs_to :answer
+
+how do we then see which users were in a room?

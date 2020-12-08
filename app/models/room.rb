@@ -39,8 +39,7 @@ class Room < ApplicationRecord
 
   before_validation :generate_name, on: :create
   before_validation :generate_password, on: :create
-  after_create :add_host_to_users
-  after_create :set_status
+  before_create :add_host_to_users
 
   def set_status
     public_send("#{status_check}!")
@@ -52,10 +51,15 @@ class Room < ApplicationRecord
     :awaiting_players
   end
 
+  def add_user(user)
+    users << user
+  end
+
   private
 
   def add_host_to_users
-    users << host
+    add_user(host)
+    self.status = :awaiting_players
   end
 
   def generate_name
