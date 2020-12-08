@@ -46,9 +46,13 @@ class Room < ApplicationRecord
   end
 
   def status_check
-    return :ready_to_start if users.count >= MIN_PLAYER_COUNT
+    return :ready_to_start if startable?
 
     :awaiting_players
+  end
+
+  def startable?
+    users.count >= MIN_PLAYER_COUNT
   end
 
   def add_user(user)

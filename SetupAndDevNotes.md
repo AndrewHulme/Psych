@@ -75,3 +75,14 @@ game flow: required model changes
 Note: System should be designed from a game-first perspective, not a history-first perspective. Prioritise the game-flow first and foremost, and the storing of game history second.
 
 how do we then see which users were in a room? just check the user's answers/votes
+
+
+mutations/queries required:
+
+- current_user query
+- current_room query (return user.room)
+
+- start_game mutation
+- submit_answer_mutation
+- submit_vote_mutation
+- ready_for_next_round_mutation (when all users are ready for the next round, then the next round can begin)
