@@ -23,6 +23,7 @@ class User < ApplicationRecord
   MAX_USERNAME_LENGTH = 30
 
   belongs_to :room, optional: true
+  has_many :answers
 
   validates :visitor_key, uniqueness: { case_sensitive: false }, allow_nil: true
   validates :name, length: { minimum: MIN_USERNAME_LENGTH, maximum: MAX_USERNAME_LENGTH }
