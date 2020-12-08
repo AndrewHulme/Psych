@@ -101,4 +101,4 @@ Note: System should be designed from a game-first perspective, not a history-fir
     belongs_to :user
     belongs_to :answer
 
-how do we then see which users were in a room?
+how do we then see which users were in a room? just check the user's answers/votes

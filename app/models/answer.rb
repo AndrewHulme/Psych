@@ -26,6 +26,7 @@ class Answer < ApplicationRecord
   belongs_to :user
   belongs_to :round
   belongs_to :question
+  has_many :votes
 
   validates :title, :user_id, :round_id, :question_id, presence: true
 end

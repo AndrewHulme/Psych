@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_08_001621) do
+ActiveRecord::Schema.define(version: 2020_12_08_002320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,15 @@ ActiveRecord::Schema.define(version: 2020_12_08_001621) do
     t.index ["visitor_key"], name: "index_users_on_visitor_key", unique: true
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "answer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["answer_id"], name: "index_votes_on_answer_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "rounds"
   add_foreign_key "answers", "users"
@@ -71,4 +80,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_001621) do
   add_foreign_key "rounds", "questions"
   add_foreign_key "rounds", "rooms"
   add_foreign_key "users", "rooms"
+  add_foreign_key "votes", "answers"
+  add_foreign_key "votes", "users"
 end
