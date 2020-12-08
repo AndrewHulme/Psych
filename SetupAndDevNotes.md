@@ -74,31 +74,4 @@ game flow: required model changes
 
 Note: System should be designed from a game-first perspective, not a history-first perspective. Prioritise the game-flow first and foremost, and the storing of game history second.
 
-  - User
-    has_many :answers
-    has_many :votes
-    belongs_to :room, foreign_key: :room_id
-
-  - Room
-    has_many :rounds
-
-  - Round
-    belongs_to :room
-    belongs_to :question
-    has_many :answers
-
-  - Question
-    has_many :rounds
-    has_many :answers
-
-  - Answers
-    belongs_to :user
-    belongs_to :round
-    belongs_to :question
-    has_many :votes
-
-  - Vote
-    belongs_to :user
-    belongs_to :answer
-
 how do we then see which users were in a room? just check the user's answers/votes
