@@ -22,4 +22,6 @@ class Round < ApplicationRecord
   belongs_to :room
   belongs_to :question
   has_many :answers
+
+  validates :room_id, :question_id, presence: true
 end

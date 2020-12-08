@@ -24,4 +24,10 @@ RSpec.describe User, type: :model do
   context "validations" do
     it { should validate_uniqueness_of(:visitor_key).case_insensitive }
   end
+
+  context "relations" do
+    it { should belong_to(:room).optional }
+    it { should have_many(:answers) }
+    it { should have_many(:votes) }
+  end
 end
