@@ -13,6 +13,8 @@ RSpec.describe Mutations::Rooms::CreateRoomMutation, type: :request do
 
       expect(Room.count).to eq(1)
       expect(Room.first.host).to eq(current_user)
+      expect(Room.first.users).to eq([current_user])
+      expect(current_user.room).to eq(Room.first)
 
       res = json_response["data"]["createRoom"]
 

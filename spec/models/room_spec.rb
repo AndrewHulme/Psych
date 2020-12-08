@@ -41,6 +41,11 @@ RSpec.describe Room, type: :model do
       .with_message("is already taken. Please choose a different password.") }
   end
 
+  context "relations" do
+    it { should belong_to(:host).class_name("User") }
+    it { should have_many(:users) }
+  end
+
   context "before create" do
     context "when room has no given name" do
       it "auto generates a name" do

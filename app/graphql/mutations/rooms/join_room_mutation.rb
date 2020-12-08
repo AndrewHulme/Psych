@@ -20,6 +20,7 @@ module Mutations
       def add_user_to_room(room)
         room.users << context[:current_user]
         room.set_status
+        context[:current_user].update!(room: room)
 
         response_ok(room: room)
       end
