@@ -29,6 +29,10 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore RSpec
+/coverage
+spec/examples.txt
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
