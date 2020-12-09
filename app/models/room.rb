@@ -25,6 +25,7 @@ class Room < ApplicationRecord
 
   belongs_to :host, class_name: "User", foreign_key: :host_id
   has_many :users
+  has_many :rounds
 
   validates :name, :password, :status, :host_id, presence: true
   validates :name, :password, length: { minimum: 3 }
@@ -53,6 +54,13 @@ class Room < ApplicationRecord
 
   def startable?
     users.count >= MIN_PLAYER_COUNT
+  end
+
+  def start_game!
+    round = Round.create(room: self)
+    return round.errors.full_messages if round.errors.any?
+
+    game_in_progress!
   end
 
   def add_user(user)

@@ -6,6 +6,7 @@ RSpec.describe Mutations::Rooms::StartGameMutation, type: :request do
     let(:host) { room.host }
     let!(:user2) { create :user, room: room }
     let!(:user3) { create :user, room: room }
+    let!(:question) { create :question }
 
     before { set_current_user(host) }
 
@@ -26,6 +27,24 @@ RSpec.describe Mutations::Rooms::StartGameMutation, type: :request do
         res = json_response["data"]["startGame"]
         expect(res["status"]).to eq("ok")
         expect(res["errors"]).to eq([])
+      end
+
+      it "creates the first round" do
+        room.set_status
+
+        subject
+
+        res = json_response["data"]["startGame"]
+        expect(res["status"]).to eq("ok")
+        expect(res["errors"]).to eq([])
+
+        room.reload
+        expect(room.rounds.count).to eq(1)
+
+        round = room.rounds.first
+        expect(round.question.present?).to eq(true)
+        expect([host, user2, user3]).to include(round.subject)
+        expect(round.question).to match(round.subject.name)
       end
     end
 

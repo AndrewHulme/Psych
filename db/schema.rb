@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_08_002320) do
+ActiveRecord::Schema.define(version: 2020_12_09_001315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_12_08_002320) do
     t.string "title", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["title"], name: "index_questions_on_title", unique: true
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -49,9 +50,12 @@ ActiveRecord::Schema.define(version: 2020_12_08_002320) do
     t.bigint "room_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "question_id"
-    t.index ["question_id"], name: "index_rounds_on_question_id"
+    t.bigint "question_template_id"
+    t.string "question"
+    t.bigint "subject_id"
+    t.index ["question_template_id"], name: "index_rounds_on_question_template_id"
     t.index ["room_id"], name: "index_rounds_on_room_id"
+    t.index ["subject_id"], name: "index_rounds_on_subject_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -77,8 +81,9 @@ ActiveRecord::Schema.define(version: 2020_12_08_002320) do
   add_foreign_key "answers", "rounds"
   add_foreign_key "answers", "users"
   add_foreign_key "rooms", "users", column: "host_id"
-  add_foreign_key "rounds", "questions"
+  add_foreign_key "rounds", "questions", column: "question_template_id"
   add_foreign_key "rounds", "rooms"
+  add_foreign_key "rounds", "users", column: "subject_id"
   add_foreign_key "users", "rooms"
   add_foreign_key "votes", "answers"
   add_foreign_key "votes", "users"

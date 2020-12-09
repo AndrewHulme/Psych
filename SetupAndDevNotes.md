@@ -82,7 +82,20 @@ mutations/queries required:
 - current_user query
 - current_room query (return user.room)
 
-- start_game mutation
+- start_game mutation (updates room status and creates the first round)
 - submit_answer_mutation
 - submit_vote_mutation
 - ready_for_next_round_mutation (when all users are ready for the next round, then the next round can begin)
+
+
+actioncable
+
+- user should subscribe to a room, after joining
+- then, all updates will come via the room. Any time an update occurs, the whole game state should be delivered as a single object via the room subscription, e.g.
+
+room = {
+  users: [UserType],
+  currentRound: RoundType,
+  question: QuestionType,
+  ...
+}
