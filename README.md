@@ -14,7 +14,7 @@
     - websockets library, used for bidirectional connection between client and server
     - (https://edgeguides.rubyonrails.org/action_cable_overview.html)
     - Example of rails app using Action Cable (https://iridakos.com/programming/2019/04/04/creating-chat-application-rails-websockets)
-  - Graphql
+  - GraphQL
     - Query language
     - (https://engineering.musefind.com/build-a-graphql-api-in-under-20-minutes-3cdaa774b786)
     - (https://dev.to/isalevine/ruby-on-rails-graphql-api-tutorial-creating-data-with-mutations-39ab)
