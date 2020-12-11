@@ -1,42 +1,49 @@
 import React from "react";
-import { Button, Typography, Container } from "@material-ui/core";
+import { Button, Grid, Typography, Container } from "@material-ui/core";
+import { spacing } from "@material-ui/system";
 import { Link } from "react-router-dom";
 
 function Homepage() {
   return (
-    <React.Fragment>
+    <div className="homepage">
       <Container component="main" maxWidth="xs">
-        <Button
-          style={{
-            maxWidth: "400px",
-            maxHeight: "100px",
-            minWidth: "400px",
-            minHeight: "100px",
-            fontSize: "35px",
-          }}
-          color="primary"
-          variant="outlined"
-        >
-          JOIN A GAME
-        </Button>
+        <Grid container spacing={2}>
+          <Grid item>
+            <Button
+              style={{
+                maxWidth: "400px",
+                maxHeight: "100px",
+                minWidth: "400px",
+                minHeight: "100px",
+                fontSize: "35px",
+              }}
+              color="primary"
+              variant="outlined"
+            >
+              JOIN A GAME
+            </Button>
+          </Grid>
 
-        <Link to={"/start"}>
-          <Button
-            style={{
-              maxWidth: "400px",
-              maxHeight: "100px",
-              minWidth: "400px",
-              minHeight: "100px",
-              fontSize: "35px",
-            }}
-            color="primary"
-            variant="outlined"
-          >
-            START A GAME
-          </Button>
-        </Link>
+          <Grid item>
+            <Link to={"/start"}>
+              <Button
+                style={{
+                  maxWidth: "400px",
+                  maxHeight: "100px",
+                  minWidth: "400px",
+                  minHeight: "100px",
+                  fontSize: "35px",
+                }}
+                color="primary"
+                variant="outlined"
+              >
+                START A GAME
+              </Button>
+            </Link>
+          </Grid>
+        </Grid>
       </Container>
-    </React.Fragment>
+    </div>
   );
 }
 

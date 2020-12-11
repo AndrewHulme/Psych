@@ -2,6 +2,9 @@ import React from "react";
 // import { useSelector, useDispatch } from "react-redux";
 // import { increment, decrement } from "./actions/index";
 // import { IRootState } from "./store/index";
+
+import "./styles.css";
+
 import Header from "./components/header";
 import Homepage from "./components/homepage";
 import StartGame from "./components/startGame";
