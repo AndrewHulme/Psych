@@ -5,19 +5,37 @@ import { Link } from "react-router-dom";
 function Homepage() {
   return (
     <React.Fragment>
-      <Typography variant="h3" gutterBottom>
-        Psych?!
-      </Typography>
-
-      <Button color="primary" variant="outlined">
-        JOIN A GAME
-      </Button>
-
-      <Link to={"/start"}>
-        <Button color="primary" variant="outlined">
-          START A GAME
+      <Container component="main" maxWidth="xs">
+        <Button
+          style={{
+            maxWidth: "400px",
+            maxHeight: "100px",
+            minWidth: "400px",
+            minHeight: "100px",
+            fontSize: "35px",
+          }}
+          color="primary"
+          variant="outlined"
+        >
+          JOIN A GAME
         </Button>
-      </Link>
+
+        <Link to={"/start"}>
+          <Button
+            style={{
+              maxWidth: "400px",
+              maxHeight: "100px",
+              minWidth: "400px",
+              minHeight: "100px",
+              fontSize: "35px",
+            }}
+            color="primary"
+            variant="outlined"
+          >
+            START A GAME
+          </Button>
+        </Link>
+      </Container>
     </React.Fragment>
   );
 }
