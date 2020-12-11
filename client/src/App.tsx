@@ -1,28 +1,28 @@
 import React from "react";
-import logo from "./logo.svg";
-import { Button, Typography, Container } from "@material-ui/core";
-import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "./actions/index";
-import { IRootState } from "./store/index";
-// import "./App.css";
+// import { useSelector, useDispatch } from "react-redux";
+// import { increment, decrement } from "./actions/index";
+// import { IRootState } from "./store/index";
+
+import "./styles.css";
+
+import Header from "./components/header";
+import Homepage from "./components/homepage";
+import StartGame from "./components/startGame";
+import JoinGame from "./components/joinGame";
+
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
-  const counter = useSelector((state: IRootState) => state.counter);
-  const dispatch = useDispatch();
-
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h3" gutterBottom>
-        Psych?! {counter}
-      </Typography>
+    <Router>
+      <Header />
 
-      <button onClick={() => dispatch(increment())}>+</button>
-      <button onClick={() => dispatch(decrement)}>-</button>
-
-      <Button color="primary" variant="outlined">
-        Play
-      </Button>
-    </Container>
+      <Switch>
+        <Route path="/" exact component={Homepage} />
+        <Route path="/start" component={StartGame} />
+        <Route path="/join" component={JoinGame} />
+      </Switch>
+    </Router>
   );
 }
 
