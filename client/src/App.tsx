@@ -8,6 +8,7 @@ import "./styles.css";
 import Header from "./components/header";
 import Homepage from "./components/homepage";
 import StartGame from "./components/startGame";
+import JoinGame from "./components/joinGame";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -19,6 +20,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={Homepage} />
         <Route path="/start" component={StartGame} />
+        <Route path="/join" component={JoinGame} />
       </Switch>
     </Router>
   );

@@ -1,6 +1,5 @@
 import React from "react";
-import { Button, Grid, Typography, Container } from "@material-ui/core";
-import { spacing } from "@material-ui/system";
+import { Button, Grid, Container } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 function Homepage() {
@@ -9,19 +8,21 @@ function Homepage() {
       <Container component="main" maxWidth="xs">
         <Grid container spacing={2}>
           <Grid item>
-            <Button
-              style={{
-                maxWidth: "400px",
-                maxHeight: "100px",
-                minWidth: "400px",
-                minHeight: "100px",
-                fontSize: "35px",
-              }}
-              color="primary"
-              variant="outlined"
-            >
-              JOIN A GAME
-            </Button>
+            <Link to={"/join"}>
+              <Button
+                style={{
+                  maxWidth: "400px",
+                  maxHeight: "100px",
+                  minWidth: "400px",
+                  minHeight: "100px",
+                  fontSize: "35px",
+                }}
+                color="primary"
+                variant="outlined"
+              >
+                JOIN A GAME
+              </Button>
+            </Link>
           </Grid>
 
           <Grid item>
