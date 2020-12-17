@@ -27,5 +27,13 @@ FactoryBot.define do
     password { "pw_#{SecureRandom.hex}" }
     round_count { 3 }
     status { 0 }
+
+    factory :startable_room do
+      after(:create, :build) do |room, _|
+        (Room::MIN_PLAYER_COUNT - 1).times do
+          create :user, room: room
+        end
+      end
+    end
   end
 end

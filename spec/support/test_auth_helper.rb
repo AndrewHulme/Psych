@@ -12,4 +12,8 @@ module TestAuthHelper
     get "/"
     User.last
   end
+
+  def set_current_user(user)
+    cookies[:visitor_key] = user.visitor_key
+  end
 end

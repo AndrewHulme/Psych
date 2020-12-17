@@ -44,6 +44,7 @@ RSpec.describe Room, type: :model do
   context "relations" do
     it { should belong_to(:host).class_name("User") }
     it { should have_many(:users) }
+    it { should have_many(:rounds) }
   end
 
   context "before create" do
