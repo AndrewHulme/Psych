@@ -51,17 +51,6 @@ https://stackoverflow.com/questions/38617791/client-javascript-for-action-cable-
 https://stackoverflow.com/questions/598933/how-do-i-change-the-default-www-example-com-domain-for-testing-in-rails
 
 
-make tests
-  - user can create a room
-    - status => :not_enough_players
-  - user can join a room with valid password
-  - user can't join room with invalid password
-  - MIN_PLAYER_COUNT amount of players join the room and status updates to :waiting_to_start
-  - host user starts game when there are enough players
-  - host user can't start game when there are not enough players
-
-
-
 creating a room
   gql mutation to create a room.
   response sends back a room (or error message)
@@ -79,13 +68,14 @@ how do we then see which users were in a room? just check the user's answers/vot
 
 mutations/queries required:
 
-- current_user query
-- current_room query (return user.room)
-
-- start_game mutation (updates room status and creates the first round)
 - submit_answer_mutation
 - submit_vote_mutation
 - ready_for_next_round_mutation (when all users are ready for the next round, then the next round can begin)
+- game leader says that next round can start mutation
+
+  (non-urgent for now)
+- current_user query
+- current_room query (return user.room)
 
 
 actioncable

@@ -25,7 +25,7 @@
 class Answer < ApplicationRecord
   belongs_to :user
   belongs_to :round
-  belongs_to :question
+  # belongs_to :question # dont need this association. can find answers for questions via rounds.
   has_many :votes
 
   validates :title, :user_id, :round_id, :question_id, presence: true
