@@ -32,7 +32,6 @@ RSpec.describe Answer, type: :model do
   context "relations" do
     it { should belong_to(:user) }
     it { should belong_to(:round) }
-    it { should belong_to(:question) }
     it { should have_many(:votes) }
   end
 end
