@@ -5,11 +5,6 @@ import { Link } from "react-router-dom";
 import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 
-// interface User {
-//   id: string;
-//   name: string;
-// }
-
 const GET_CURRENT_USER = gql`
   query GetCurrentUser {
     currentUser {
