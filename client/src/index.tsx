@@ -7,6 +7,13 @@ import { createStore } from "redux";
 import allReducers from "./reducers/index";
 import { Provider } from "react-redux";
 
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
+
+const client = new ApolloClient({
+  uri: "http://backend.lvh.me/graphql",
+});
+
 const store = createStore(
   allReducers,
   (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
@@ -16,7 +23,9 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
