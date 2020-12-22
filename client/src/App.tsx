@@ -21,8 +21,8 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <Router>
-      <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
+      <Router>
         <Header />
 
         <Switch>
@@ -30,8 +30,8 @@ function App() {
           <Route path="/start" component={StartGame} />
           <Route path="/join" component={JoinGame} />
         </Switch>
-      </ApolloProvider>
-    </Router>
+      </Router>
+    </ApolloProvider>
   );
 }
 
