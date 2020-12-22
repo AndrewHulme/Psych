@@ -1,6 +1,22 @@
 import React from "react";
 import { Button, TextField, Container } from "@material-ui/core";
 
+import { gql } from "apollo-boost";
+import { Mutation } from "react-apollo";
+
+const CHANGE_USERNAME = gql`
+  mutation updateUserName($name: String!) {
+    updateUserName(name: $name) {
+      user {
+        id
+        name
+      }
+      status
+      errors
+    }
+  }
+`;
+
 function UserNameInput() {
   return (
     <div className="homepage">
