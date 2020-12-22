@@ -2,6 +2,8 @@ import React from "react";
 import { Button, Grid, Container } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
+// import UserNameInput from "./userNameInput";
+
 import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 
