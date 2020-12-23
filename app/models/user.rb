@@ -28,4 +28,6 @@ class User < ApplicationRecord
 
   validates :visitor_key, uniqueness: { case_sensitive: false }, allow_nil: true
   validates :name, length: { minimum: MIN_USERNAME_LENGTH, maximum: MAX_USERNAME_LENGTH }
+
+  delegate :current_round, to: :room
 end
