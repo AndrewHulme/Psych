@@ -13,7 +13,6 @@
 #
 class Question < ApplicationRecord
   has_many :rounds, foreign_key: :question_template_id
-  has_many :answers
 
   validates :title, presence: true, uniqueness: { case_sensitive: false }
 

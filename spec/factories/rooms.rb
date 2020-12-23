@@ -2,22 +2,25 @@
 #
 # Table name: rooms
 #
-#  id          :bigint           not null, primary key
-#  name        :string
-#  password    :string
-#  round_count :integer          default(3)
-#  status      :integer          default("draft"), not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  host_id     :bigint           not null
+#  id               :bigint           not null, primary key
+#  name             :string
+#  password         :string
+#  round_count      :integer          default(3)
+#  status           :integer          default("draft"), not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  current_round_id :bigint
+#  host_id          :bigint           not null
 #
 # Indexes
 #
-#  index_rooms_on_host_id   (host_id)
-#  index_rooms_on_password  (password) UNIQUE
+#  index_rooms_on_current_round_id  (current_round_id)
+#  index_rooms_on_host_id           (host_id)
+#  index_rooms_on_password          (password) UNIQUE
 #
 # Foreign Keys
 #
+#  fk_rails_...  (current_round_id => rounds.id)
 #  fk_rails_...  (host_id => users.id)
 #
 FactoryBot.define do
