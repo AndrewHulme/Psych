@@ -21,8 +21,8 @@
 #
 FactoryBot.define do
   factory :answer do
-    user { nil }
-    round { nil }
-    question { nil }
+    answer { "An answer" }
+    association :user
+    association :round
   end
 end
