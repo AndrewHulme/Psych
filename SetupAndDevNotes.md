@@ -68,13 +68,11 @@ how do we then see which users were in a room? just check the user's answers/vot
 
 mutations/queries required:
 
-- submit_answer_mutation
 - submit_vote_mutation
 - ready_for_next_round_mutation (when all users are ready for the next round, then the next round can begin)
 - game leader says that next round can start mutation
 
   (non-urgent for now)
-- current_user query
 - current_room query (return user.room)
 
 

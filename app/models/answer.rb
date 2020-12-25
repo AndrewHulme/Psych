@@ -27,4 +27,8 @@ class Answer < ApplicationRecord
   validates :answer, :user_id, :round_id, presence: true
 
   delegate :question, to: :round
+
+  def points
+    votes.count
+  end
 end
