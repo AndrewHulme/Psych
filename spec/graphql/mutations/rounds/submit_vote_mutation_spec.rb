@@ -64,16 +64,16 @@ RSpec.describe Mutations::Rounds::SubmitVoteMutation, type: :request do
     end
 
     context "when answer is invalid" do
-      let!(:answer) { 0 }
+      let!(:answer_id) { 0 }
 
       it "submits the answer" do
         subject
 
-        expect(Answer.count).to eq(0)
+        expect(Vote.count).to eq(0)
 
         res = json_response["data"]["submitVote"]
         expect(res["status"]).to eq("failed")
-        expect(res["errors"]).to eq(["Answer id is invalid."])
+        expect(res["errors"]).to eq(["Answer not found."])
       end
     end
   end
