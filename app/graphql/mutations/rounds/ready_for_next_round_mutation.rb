@@ -13,6 +13,7 @@ module Mutations
         return response_failed(user) if user.errors.any?
 
         round.reload
+        round.set_status
         round.room.next_round! if round.ready_for_next_round?
 
         response_ok

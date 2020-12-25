@@ -4,6 +4,7 @@
 #
 #  id                   :bigint           not null, primary key
 #  question             :string
+#  status               :integer
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  question_template_id :bigint
@@ -23,6 +24,8 @@
 #  fk_rails_...  (subject_id => users.id)
 #
 class Round < ApplicationRecord
+  include StatusHelper
+
   belongs_to :room
   belongs_to :question_template, class_name: "Question", foreign_key: "question_template_id"
   belongs_to :subject, class_name: "User", foreign_key: "subject_id"
@@ -30,12 +33,37 @@ class Round < ApplicationRecord
 
   validates :question, :room_id, :question_template_id, presence: true
 
+  enum status: {
+    draft: 0,
+    submitting_answers: 1,
+    all_answers_submitted: 2,
+    all_votes_submitted: 3,
+    finished: 4
+  }
+
   before_validation :prepare_question, on: :create
+  before_create :set_on_create_status
 
   delegate :users, to: :room
 
+  def status_check
+    return :finished if all_votes_submitted? && ready_for_next_round?
+    return :all_votes_submitted if all_votes_submitted?
+    return :all_answers_submitted if all_answers_submitted?
+
+    :submitting_answers
+  end
+
+  def votes
+    Vote.where(answer: answers)
+  end
+
+  def all_answers_submitted?
+    answers.count == users.count
+  end
+
   def all_votes_submitted?
-    Vote.where(answer: answers).count == answers.count
+    votes.count == answers.count
   end
 
   def ready_for_next_round?
@@ -57,5 +85,9 @@ class Round < ApplicationRecord
 
   def random_room_user
     room.users.sample
+  end
+
+  def set_on_create_status
+    self.status = :submitting_answers
   end
 end

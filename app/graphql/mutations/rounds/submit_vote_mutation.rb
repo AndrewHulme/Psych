@@ -12,7 +12,10 @@ module Mutations
         return response_error("Answer not found.") if answer.blank?
 
         vote = Vote.create(user: user, answer: answer)
-        vote.errors.any? ? response_failed(vote) : response_ok
+        return response_failed(vote) if vote.errors.any?
+
+        user.current_round.set_status
+        response_ok
       end
     end
   end

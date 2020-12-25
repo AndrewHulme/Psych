@@ -26,9 +26,28 @@ RSpec.describe Mutations::Rounds::SubmitAnswerMutation, type: :request do
         answer = Answer.last
         expect(answer.round).to eq(round)
 
+        round.reload
+        expect(round.status).to eq("submitting_answers")
+
         res = json_response["data"]["submitAnswer"]
         expect(res["status"]).to eq("ok")
         expect(res["errors"]).to eq([])
+      end
+
+      context "when current user is the last user to submit an answer" do
+        let!(:answers) { [user2, user3].each { |user| create :answer, user: user, round: round } }
+
+        it "updates the round's status to :all_answers_submitted" do
+          subject
+
+          round.reload
+          expect(round.answers.count).to eq(3)
+          expect(round.status).to eq("all_answers_submitted")
+
+          res = json_response["data"]["submitAnswer"]
+          expect(res["status"]).to eq("ok")
+          expect(res["errors"]).to eq([])
+        end
       end
     end
 

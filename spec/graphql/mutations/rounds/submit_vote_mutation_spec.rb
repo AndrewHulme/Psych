@@ -36,6 +36,9 @@ RSpec.describe Mutations::Rounds::SubmitVoteMutation, type: :request do
         answer2.reload
         expect(answer2.points).to eq(1)
 
+        round.reload
+        expect(round.status).to eq("all_answers_submitted")
+
         res = json_response["data"]["submitVote"]
         expect(res["status"]).to eq("ok")
         expect(res["errors"]).to eq([])
@@ -55,6 +58,23 @@ RSpec.describe Mutations::Rounds::SubmitVoteMutation, type: :request do
 
           answer1.reload
           expect(answer1.points).to eq(1)
+
+          res = json_response["data"]["submitVote"]
+          expect(res["status"]).to eq("ok")
+          expect(res["errors"]).to eq([])
+        end
+      end
+
+      context "when current user is the last user to submit a vote" do
+        let!(:votes) { [user2, user3].each { |user| create :vote, user: user, answer: answer1 } }
+
+        it "updates the round's status to :all_votes_submitted" do
+          subject
+
+          expect(Vote.count).to eq(3)
+
+          round.reload
+          expect(round.status).to eq("all_votes_submitted")
 
           res = json_response["data"]["submitVote"]
           expect(res["status"]).to eq("ok")

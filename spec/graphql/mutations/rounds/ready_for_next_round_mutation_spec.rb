@@ -30,6 +30,9 @@ RSpec.describe Mutations::Rounds::ReadyForNextRoundMutation, type: :request do
         host.reload
         expect(host.ready_for_next_round).to eq(true)
 
+        round.reload
+        expect(round.status).to eq("all_votes_submitted")
+
         res = json_response["data"]["readyForNextRound"]
         expect(res["status"]).to eq("ok")
         expect(res["errors"]).to eq([])
@@ -40,18 +43,30 @@ RSpec.describe Mutations::Rounds::ReadyForNextRoundMutation, type: :request do
           [user2, user3].each { |user| user.update!(ready_for_next_round: true) }
         end
 
-        it "creates a new round and sets ready_for_next_round to nil for all users" do
+        it "creates a new round and sets the old round to have status :finished" do
           expect(Round.count).to eq(1)
 
           subject
-
-          users.map(&:reload)
-          expect(users.map(&:ready_for_next_round).uniq).to eq([nil])
 
           room.reload
           expect(Round.count).to eq(2)
           expect(room.current_round).to_not eq(round)
           expect(room.current_round).to eq(Round.last)
+
+          round.reload
+          expect(round.status).to eq("finished")
+          expect(room.current_round.status).to eq("submitting_answers")
+
+          res = json_response["data"]["readyForNextRound"]
+          expect(res["status"]).to eq("ok")
+          expect(res["errors"]).to eq([])
+        end
+
+        it "sets ready_for_next_round to nil for all users" do
+          subject
+
+          users.map(&:reload)
+          expect(users.map(&:ready_for_next_round).uniq).to eq([nil])
 
           res = json_response["data"]["readyForNextRound"]
           expect(res["status"]).to eq("ok")

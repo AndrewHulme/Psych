@@ -24,6 +24,8 @@
 #  fk_rails_...  (host_id => users.id)
 #
 class Room < ApplicationRecord
+  include StatusHelper
+
   MIN_PLAYER_COUNT = 3
 
   belongs_to :host, class_name: "User", foreign_key: :host_id
@@ -45,10 +47,6 @@ class Room < ApplicationRecord
   before_validation :generate_name, on: :create
   before_validation :generate_password, on: :create
   before_create :add_host_to_users
-
-  def set_status
-    public_send("#{status_check}!")
-  end
 
   def status_check
     return :ready_to_start if startable?

@@ -4,6 +4,7 @@
 #
 #  id                   :bigint           not null, primary key
 #  question             :string
+#  status               :integer
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  question_template_id :bigint
