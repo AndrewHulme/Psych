@@ -4,8 +4,7 @@ development:
   channel_prefix: web_development
 
 test:
-  # adapter: test
-  adapter: async
+  adapter: test
 
 production:
   adapter: redis
