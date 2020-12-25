@@ -10,7 +10,12 @@ module Mutations
         return response_error("Update failed. Waiting for remaining votes.") unless round.all_votes_submitted?
 
         user.update(ready_for_next_round: true)
-        user.errors.any? ? response_failed(user) : response_ok
+        return response_failed(user) if user.errors.any?
+
+        round.reload
+        round.room.next_round! if round.ready_for_next_round?
+
+        response_ok
       end
     end
   end

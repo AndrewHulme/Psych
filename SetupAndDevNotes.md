@@ -68,8 +68,7 @@ how do we then see which users were in a room? just check the user's answers/vot
 
 mutations/queries required:
 
-- ready_for_next_round_mutation (when all users are ready for the next round, then the next round can begin)
-- game leader says that next round can start mutation
+- game leader says that next round can start mutation (optional)
   - dont make a constraint on starting the next round in the back end. just provide it as an indicator for the front end, so that we can choose if we want the game leader to start the next round at their own will
 
   - ensure that round has a status which updates correctly
