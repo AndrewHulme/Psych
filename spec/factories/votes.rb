@@ -20,7 +20,7 @@
 #
 FactoryBot.define do
   factory :vote do
-    user { nil }
-    answer { nil }
+    association :user
+    association :answer
   end
 end

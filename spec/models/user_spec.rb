@@ -2,12 +2,13 @@
 #
 # Table name: users
 #
-#  id          :bigint           not null, primary key
-#  name        :string           default("Player")
-#  visitor_key :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  room_id     :bigint
+#  id                   :bigint           not null, primary key
+#  name                 :string           default("Player")
+#  ready_for_next_round :boolean
+#  visitor_key          :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  room_id              :bigint
 #
 # Indexes
 #

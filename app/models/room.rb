@@ -40,7 +40,7 @@ class Room < ApplicationRecord
     message: "is already taken. Please choose a different password."
   }
 
-  enum status: { draft: 0, awaiting_players: 1, ready_to_start: 2, game_in_progress: 3 }
+  enum status: { draft: 0, awaiting_players: 1, ready_to_start: 2, game_in_progress: 3, game_finished: 4 }
 
   before_validation :generate_name, on: :create
   before_validation :generate_password, on: :create
@@ -61,11 +61,22 @@ class Room < ApplicationRecord
   end
 
   def start_game!
+    next_round!
+    game_in_progress!
+  end
+
+  def can_start_next_round?
+    round_count.zero? || rounds.count < round_count
+  end
+
+  def next_round!
+    return game_finished! unless can_start_next_round?
+
     round = Round.create(room: self)
     return round.errors.full_messages if round.errors.any?
 
+    users.update_all(ready_for_next_round: nil)
     update!(current_round: round)
-    game_in_progress!
   end
 
   def add_user(user)

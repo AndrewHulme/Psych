@@ -32,6 +32,16 @@ class Round < ApplicationRecord
 
   before_validation :prepare_question, on: :create
 
+  delegate :users, to: :room
+
+  def all_votes_submitted?
+    Vote.where(answer: answers).count == answers.count
+  end
+
+  def ready_for_next_round?
+    users.map(&:ready_for_next_round).uniq == [true]
+  end
+
   private
 
   def prepare_question
