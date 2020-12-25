@@ -21,7 +21,7 @@
 #
 FactoryBot.define do
   factory :answer do
-    answer { "An answer" }
+    answer { Faker::Quote.most_interesting_man_in_the_world }
     association :user
     association :round
   end

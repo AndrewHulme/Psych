@@ -3,11 +3,10 @@ module Mutations
     class SubmitVoteMutation < BaseMutation
       description "Allow current user to submit a vote for an answer in the current round"
 
-      argument :answer_id, ID, required: true
-
-      def resolve(answer_id:)
+      def resolve
         user = context[:current_user]
 
+        binding.pry
         answer = Answer.find_by(id: answer_id)
         return response_error("Answer not found.") if answer.blank?
 

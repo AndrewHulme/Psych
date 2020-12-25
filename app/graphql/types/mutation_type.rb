@@ -6,6 +6,7 @@ module Types
 
     field :submit_answer, mutation: Mutations::Rounds::SubmitAnswerMutation
     field :submit_vote, mutation: Mutations::Rounds::SubmitVoteMutation
+    field :ready_for_next_round, mutation: Mutations::Rounds::ReadyForNextRoundMutation
 
     field :update_user_name, mutation: Mutations::Users::UpdateUserNameMutation
   end

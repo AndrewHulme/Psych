@@ -32,6 +32,10 @@ class Round < ApplicationRecord
 
   before_validation :prepare_question, on: :create
 
+  def all_votes_submitted?
+    Vote.where(answer: answers).count == answers.count
+  end
+
   private
 
   def prepare_question
