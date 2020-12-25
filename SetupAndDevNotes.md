@@ -71,14 +71,7 @@ mutations/queries required:
 - game leader says that next round can start mutation (optional)
   - dont make a constraint on starting the next round in the back end. just provide it as an indicator for the front end, so that we can choose if we want the game leader to start the next round at their own will
 
-  - ensure that round has a status which updates correctly
-    - statuses:
-      - :submitting_answers
-      - :all_answers_submitted
-      - :all_votes_submitted
-      - :ready_for_next_round
 
-  - ensure that user.ready_for_next_round is set to nil when new round starts
 
   (non-urgent for now)
 - current_room query (return user.room)

@@ -43,6 +43,7 @@ RSpec.describe Mutations::Rooms::StartGameMutation, type: :request do
 
         round = room.rounds.first
         expect(room.current_round).to eq(round)
+        expect(round.status).to eq("submitting_answers")
         expect(round.question.present?).to eq(true)
         expect([host, user2, user3]).to include(round.subject)
         expect(round.question).to match(round.subject.name)

@@ -12,7 +12,10 @@ module Mutations
         round = user.current_round
 
         answer = Answer.create(answer: answer, user: user, round: round)
-        answer.errors.any? ? response_failed(answer) : response_ok
+        return response_failed(answer) if answer.errors.any?
+
+        round.set_status
+        response_ok
       end
     end
   end
