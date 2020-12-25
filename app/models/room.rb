@@ -81,6 +81,48 @@ class Room < ApplicationRecord
     users << user
   end
 
+  def round_number
+    rounds.count
+  end
+
+  def to_game_state
+    # Game State Schema, expressed in graphql format
+    #
+    # room {
+    #   id
+    #   name
+    #   password
+    #   host_id
+    #   round_count
+    #   round_number
+    #   status
+    #   users {
+    #     id
+    #     name
+    #     ready_for_next_round
+    #   }
+    #   current_round {
+    #     id
+    #     status
+    #     question
+    #     subject_id
+    #     answers {
+    #       id
+    #       answer
+    #       points
+    #       user_id
+    #     }
+    #   }
+    # }
+
+    state = slice(:id, :name, :password, :host_id, :round_count, :round_number, :status)
+
+    state[:users] = users.map &:to_game_state
+    state[:current_round] = current_round&.to_game_state
+
+    state.with_indifferent_access
+  end
+
   private
 
   def add_host_to_users

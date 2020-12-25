@@ -82,4 +82,74 @@ RSpec.describe Room, type: :model do
       expect(subject.status).to eq("awaiting_players")
     end
   end
+
+  describe "#to_game_state" do
+    let!(:question) { create :question }
+    let(:room) { create :room }
+    let(:host) { room.host }
+    let!(:user2) { create :user, room: room }
+    let!(:user3) { create :user, room: room }
+    let(:users) { [host, user2, user3] }
+
+    before do
+      subject.reload
+      subject.set_status
+    end
+
+    context "before game has started" do
+      it "returns the room's current game state" do
+        state = subject.to_game_state
+
+        expect(state["id"]).to eq(room.id)
+        expect(state["name"]).to eq(room.name)
+        expect(state["password"]).to eq(room.password)
+        expect(state["host_id"]).to eq(room.host_id)
+        expect(state["round_count"]).to eq(room.round_count)
+        expect(state["round_number"]).to eq(room.round_number)
+        expect(state["status"]).to eq(room.status)
+
+        expect(state["users"].pluck("id")).to include(*users.pluck(:id))
+        expect(state["users"].pluck("name")).to include(*users.pluck(:name))
+        expect(state["users"].pluck("ready_for_next_round")).to include(*users.pluck(:ready_for_next_round))
+
+        expect(state["current_round"]).to be_nil
+      end
+    end
+
+    context "when game is in progress" do
+      let(:room) {
+        room = create :room
+        room.start_game!
+        room
+      }
+      let(:round) { room.current_round }
+      let!(:answers) { users.map { |user| create(:answer, user: user, round: round) }}
+      let!(:votes) { answers.map { |answer| create :vote, user: answer.user, answer: answer }}
+
+      it "returns the room's current game state" do
+        state = subject.to_game_state
+
+        expect(state["id"]).to eq(room.id)
+        expect(state["name"]).to eq(room.name)
+        expect(state["password"]).to eq(room.password)
+        expect(state["host_id"]).to eq(room.host_id)
+        expect(state["round_count"]).to eq(room.round_count)
+        expect(state["status"]).to eq(room.status)
+
+        expect(state["users"].pluck("id")).to include(*users.pluck(:id))
+        expect(state["users"].pluck("name")).to include(*users.pluck(:name))
+        expect(state["users"].pluck("ready_for_next_round")).to include(*users.pluck(:ready_for_next_round))
+
+        expect(state["current_round"]["id"]).to eq(round.id)
+        expect(state["current_round"]["status"]).to eq(round.status)
+        expect(state["current_round"]["question"]).to eq(round.question)
+        expect(state["current_round"]["subject_id"]).to eq(round.subject_id)
+
+        expect(state["current_round"]["answers"].pluck("id")).to include(*answers.pluck(:id))
+        expect(state["current_round"]["answers"].pluck("answer")).to include(*answers.pluck(:answer))
+        expect(state["current_round"]["answers"].pluck("points")).to include(*answers.map(&:points))
+        expect(state["current_round"]["answers"].pluck("user_id")).to include(*answers.pluck(:user_id))
+      end
+    end
+  end
 end
