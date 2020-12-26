@@ -7,6 +7,7 @@ module Mutations
 
       def resolve(answer_id:)
         user = context[:current_user]
+        room = user.room
 
         answer = Answer.find_by(id: answer_id)
         return response_error("Answer not found.") if answer.blank?
@@ -15,6 +16,8 @@ module Mutations
         return response_failed(vote) if vote.errors.any?
 
         user.current_round.set_status
+
+        room.broadcast_game_state
         response_ok
       end
     end

@@ -123,6 +123,10 @@ class Room < ApplicationRecord
     state.with_indifferent_access
   end
 
+  def broadcast_game_state
+    BroadcastGameStateWorker.perform_async(id)
+  end
+
   private
 
   def add_host_to_users

@@ -34,6 +34,12 @@ RSpec.describe Mutations::Rounds::SubmitAnswerMutation, type: :request do
         expect(res["errors"]).to eq([])
       end
 
+      it "enqueues a job to broadcast the updated game state" do
+        subject
+
+        expect(BroadcastGameStateWorker).to have_enqueued_sidekiq_job(room.id)
+      end
+
       context "when current user is the last user to submit an answer" do
         let!(:answers) { [user2, user3].each { |user| create :answer, user: user, round: round } }
 
