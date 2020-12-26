@@ -31,4 +31,10 @@ class User < ApplicationRecord
   validates :name, length: { minimum: MIN_USERNAME_LENGTH, maximum: MAX_USERNAME_LENGTH }
 
   delegate :current_round, to: :room
+
+  def to_game_state
+    state = slice(:id, :name, :ready_for_next_round)
+
+    state.with_indifferent_access
+  end
 end

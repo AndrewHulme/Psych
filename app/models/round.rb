@@ -70,6 +70,14 @@ class Round < ApplicationRecord
     users.map(&:ready_for_next_round).uniq == [true]
   end
 
+  def to_game_state
+    state = slice(:id, :status, :question, :subject_id)
+
+    state[:answers] = answers.map &:to_game_state
+
+    state.with_indifferent_access
+  end
+
   private
 
   def prepare_question

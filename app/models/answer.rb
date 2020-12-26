@@ -31,4 +31,10 @@ class Answer < ApplicationRecord
   def points
     votes.count
   end
+
+  def to_game_state
+    state = slice(:id, :answer, :points, :user_id)
+
+    state.with_indifferent_access
+  end
 end
