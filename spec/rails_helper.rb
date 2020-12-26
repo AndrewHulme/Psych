@@ -77,6 +77,7 @@ RSpec.configure do |config|
 
   config.before(:each, type: :request) do
     delete_auth_cookies
+    Faker::UniqueGenerator.clear
   end
 
   config.before(:suite) do
