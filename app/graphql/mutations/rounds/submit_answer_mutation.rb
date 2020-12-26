@@ -9,12 +9,15 @@ module Mutations
         return response_error("Answer is invalid.") if answer.blank?
 
         user = context[:current_user]
+        room = user.room
         round = user.current_round
 
         answer = Answer.create(answer: answer, user: user, round: round)
         return response_failed(answer) if answer.errors.any?
 
         round.set_status
+
+        room.broadcast_game_state
         response_ok
       end
     end

@@ -24,6 +24,12 @@ RSpec.describe Mutations::Rooms::JoinRoomMutation, type: :request do
         expect(res["errors"]).to eq([])
       end
 
+      it "enqueues a job to broadcast the updated game state" do
+        subject
+
+        expect(BroadcastGameStateWorker).to have_enqueued_sidekiq_job(room.id)
+      end
+
       context "when room is 1 player short of being ready to start a game" do
         let!(:second_player) { create :user, room: room }
 

@@ -32,6 +32,7 @@ gem 'rack-cors'
 gem "graphql", "~> 1.9"
 # gem "graphql-errors", "~> 0.3"
 gem "rails_admin", "~> 2.0"
+gem "redis-namespace"
 gem "sidekiq"
 
 

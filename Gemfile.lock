@@ -210,6 +210,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redis (4.2.4)
+    redis-namespace (1.8.0)
+      redis (>= 3.0.4)
     regexp_parser (1.8.2)
     remotipart (1.4.4)
     rexml (3.2.4)
@@ -326,6 +328,7 @@ DEPENDENCIES
   rails (~> 6.0.3, >= 6.0.3.4)
   rails_admin (~> 2.0)
   redis (~> 4.0)
+  redis-namespace
   rspec-rails
   rspec-sidekiq (~> 3.0, >= 3.0.3)
   rubocop (~> 0.85.1)

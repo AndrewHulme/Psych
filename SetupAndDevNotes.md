@@ -80,14 +80,6 @@ mutations/queries required:
 actioncable
 
 - user should subscribe to a room, after joining
-- then, all updates will come via the room. Any time an update occurs, the whole game state should be delivered as a single object via the room subscription, e.g.
-
-room = {
-  users: [UserType],
-  currentRound: RoundType,
-  question: QuestionType,
-  ...
-}
 
 - ensure that users can leave a game mid way through, and maybe even rejoin.
 

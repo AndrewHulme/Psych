@@ -12,8 +12,8 @@ module Mutations
         res = room.start_game!
         return response_failed(res) unless res == true
 
-        # dispatch game state via action cable
-
+        room.reload
+        room.broadcast_game_state
         response_ok
       end
     end

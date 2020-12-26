@@ -22,6 +22,8 @@ module Mutations
         room.set_status
         context[:current_user].update!(room: room)
 
+        room.broadcast_game_state
+
         response_ok(room: room)
       end
     end

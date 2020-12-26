@@ -5,6 +5,7 @@ module Mutations
 
       def resolve
         user = context[:current_user]
+        room = user.room
         round = user.current_round
 
         return response_error("Update failed. Waiting for remaining votes.") unless round.all_votes_submitted?
@@ -14,8 +15,9 @@ module Mutations
 
         round.reload
         round.set_status
-        round.room.next_round! if round.ready_for_next_round?
+        room.next_round! if round.ready_for_next_round?
 
+        room.broadcast_game_state
         response_ok
       end
     end

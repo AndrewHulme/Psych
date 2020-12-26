@@ -8,14 +8,15 @@ RSpec.describe Mutations::Rooms::StartGameMutation, type: :request do
     let!(:user3) { create :user, room: room }
     let!(:question) { create :question }
 
-    before { set_current_user(host) }
+    before do
+      set_current_user(host)
+      room.set_status
+    end
 
     subject { post "/graphql", params: { query: query }, as: :json }
 
     context "when room has enough players and has status ready_to_start" do
       it "starts the game" do
-        room.set_status
-
         expect(room.users.count).to eq(3)
         expect(room.status).to eq("ready_to_start")
 
@@ -30,8 +31,6 @@ RSpec.describe Mutations::Rooms::StartGameMutation, type: :request do
       end
 
       it "creates the first round" do
-        room.set_status
-
         subject
 
         res = json_response["data"]["startGame"]
@@ -48,14 +47,18 @@ RSpec.describe Mutations::Rooms::StartGameMutation, type: :request do
         expect([host, user2, user3]).to include(round.subject)
         expect(round.question).to match(round.subject.name)
       end
+
+      it "enqueues a job to broadcast the updated game state" do
+        subject
+
+        expect(BroadcastGameStateWorker).to have_enqueued_sidekiq_job(room.id)
+      end
     end
 
     context "when the room does not have enough players" do
       let!(:user3) { create :user }
 
       it "returns an error" do
-        room.set_status
-
         expect(room.users.count >= Room::MIN_PLAYER_COUNT).to eq(false)
         expect(room.status).to eq("awaiting_players")
 
@@ -74,8 +77,6 @@ RSpec.describe Mutations::Rooms::StartGameMutation, type: :request do
       before { set_current_user(user3) }
 
       it "returns an error" do
-        room.set_status
-
         expect(room.status).to eq("ready_to_start")
 
         subject

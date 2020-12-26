@@ -15,7 +15,6 @@ RSpec.describe BroadcastGameStateWorker, type: :worker do
   describe "#perform" do
     it "sends a websocket broadcast with the current game state" do
       room.reload
-
       expect { subject }.to have_broadcasted_to(room).from_channel(RoomChannel)
         .with(room.to_game_state)
     end

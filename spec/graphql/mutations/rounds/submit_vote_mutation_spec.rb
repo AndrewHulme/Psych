@@ -44,6 +44,12 @@ RSpec.describe Mutations::Rounds::SubmitVoteMutation, type: :request do
         expect(res["errors"]).to eq([])
       end
 
+      it "enqueues a job to broadcast the updated game state" do
+        subject
+
+        expect(BroadcastGameStateWorker).to have_enqueued_sidekiq_job(room.id)
+      end
+
       context "when current user votes for their own answer" do
         let!(:answer_id) { answer1.id }
 
