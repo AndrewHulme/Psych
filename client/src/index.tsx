@@ -8,11 +8,14 @@ import { createStore } from "redux";
 import allReducers from "./reducers/index";
 import { Provider } from "react-redux";
 
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
+// import ApolloClient from "apollo-boost";
+// import { ApolloProvider } from "react-apollo";
 
 const client = new ApolloClient({
   uri: "http://backend.lvh.me/graphql",
+  cache: new InMemoryCache(),
 });
 
 const store = createStore(
