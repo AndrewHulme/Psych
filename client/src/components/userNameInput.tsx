@@ -1,8 +1,10 @@
 import React from "react";
 import { Button, TextField, Container } from "@material-ui/core";
 
-import { gql } from "apollo-boost";
-import { Mutation } from "react-apollo";
+// import { gql } from "apollo-boost";
+// import { Mutation } from "react-apollo";
+
+import { gql, useMutation } from "@apollo/client";
 
 const CHANGE_USERNAME = gql`
   mutation updateUserName($name: String!) {
@@ -18,6 +20,19 @@ const CHANGE_USERNAME = gql`
 `;
 
 function UserNameInput() {
+  const [changeUsername, { data }] = useMutation(CHANGE_USERNAME);
+
+  function handleClick() {
+    console.log("Username Submission!");
+    changeUsername({ variables: { name: "Andrew" } });
+
+    // setTimeout(() => {
+    //   console.log(data);
+    // }, 3000);
+
+    console.log(data);
+  }
+
   return (
     <div className="homepage">
       <Container component="main" maxWidth="xs">
@@ -44,6 +59,7 @@ function UserNameInput() {
           }}
           color="primary"
           variant="outlined"
+          onClick={() => handleClick()}
         >
           SUBMIT!
         </Button>
