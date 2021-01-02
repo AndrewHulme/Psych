@@ -16,6 +16,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 const client = new ApolloClient({
   uri: "http://backend.lvh.me/graphql",
   cache: new InMemoryCache(),
+  credentials: "include",
 });
 
 const store = createStore(
