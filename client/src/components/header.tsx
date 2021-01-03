@@ -1,4 +1,5 @@
 import React from "react";
+
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -6,6 +7,9 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+
+import { useSelector } from "react-redux";
+import { IRootState } from "../store/index";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,6 +28,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ButtonAppBar() {
   const classes = useStyles();
 
+  const user = useSelector((state: IRootState) => state.user);
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -39,7 +45,11 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Psych?!
           </Typography>
-          <Button color="inherit">Profile</Button>
+          {user.name !== "Player" ? (
+            <Button color="inherit">{user.name}</Button>
+          ) : (
+            ""
+          )}
         </Toolbar>
       </AppBar>
     </div>

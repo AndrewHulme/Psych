@@ -6,6 +6,8 @@
 
 # Ignore nodemodules dependencies
 /client/node_modules
+/node_modules
+
 /client/.pnp
 /client/.pnp.js
 
@@ -41,6 +43,7 @@ spec/examples.txt
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
+
 !/tmp/pids/
 !/tmp/pids/.keep
 

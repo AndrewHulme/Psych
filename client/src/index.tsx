@@ -3,9 +3,18 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+
 import { createStore } from "redux";
 import allReducers from "./reducers/index";
 import { Provider } from "react-redux";
+
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: "http://backend.lvh.me/graphql",
+  cache: new InMemoryCache(),
+  credentials: "include",
+});
 
 const store = createStore(
   allReducers,
@@ -16,7 +25,9 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
