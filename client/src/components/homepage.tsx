@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Grid, Container } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 import UserNameInput from "./userNameInput";
+
+import { useDispatch } from "react-redux";
+import { updateUser } from "../actions/userActions";
 
 import { useQuery, gql } from "@apollo/client";
 
@@ -17,6 +20,16 @@ const GET_CURRENT_USER = gql`
 
 function Homepage() {
   const { loading, error, data } = useQuery(GET_CURRENT_USER);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (data) {
+      var userData = { id: data.currentUser.id, name: data.currentUser.name };
+
+      dispatch(updateUser(userData));
+    }
+  }, [data, dispatch]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error {error.toString()}</p>;
