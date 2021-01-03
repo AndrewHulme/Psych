@@ -25,13 +25,6 @@ function Homepage() {
   console.log(data.currentUser.name);
 
   return (
-    // <Query query={GET_CURRENT_USER}>
-    // {(result: any) => {
-    // const { data, loading, error } = result;
-
-    // if (loading) return <p>Loading...</p>;
-    // if (error) return <p>Error {error.toString()}</p>;
-
     <div>
       {data.currentUser.name === "Player" ? (
         <UserNameInput />
@@ -79,9 +72,6 @@ function Homepage() {
         </div>
       )}
     </div>
-    // );
-    // }}
-    // </Query>
   );
 }
 

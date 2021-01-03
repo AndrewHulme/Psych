@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, TextField, Container } from "@material-ui/core";
 
 import { gql, useMutation } from "@apollo/client";
@@ -19,13 +19,11 @@ const CHANGE_USERNAME = gql`
 function UserNameInput() {
   const [changeUsername, { data }] = useMutation(CHANGE_USERNAME);
 
+  const [name, updateName] = useState("");
+
   function handleClick() {
     console.log("Username Submission!");
-    changeUsername({ variables: { name: "Andrew" } });
-
-    // setTimeout(() => {
-    //   console.log(data);
-    // }, 3000);
+    changeUsername({ variables: { name: name } });
 
     console.log(data);
   }
@@ -44,6 +42,8 @@ function UserNameInput() {
           }}
           label="WHAT'S YOUR NAME?"
           variant="outlined"
+          value={name}
+          onChange={(e) => updateName(e.target.value)}
         />
 
         <Button
