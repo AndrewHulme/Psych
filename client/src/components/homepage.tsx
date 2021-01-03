@@ -4,9 +4,6 @@ import { Link } from "react-router-dom";
 
 import UserNameInput from "./userNameInput";
 
-// import { gql } from "apollo-boost";
-// import { Query } from "react-apollo";
-
 import { useQuery, gql } from "@apollo/client";
 
 const GET_CURRENT_USER = gql`

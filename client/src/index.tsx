@@ -10,9 +10,6 @@ import { Provider } from "react-redux";
 
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
-// import ApolloClient from "apollo-boost";
-// import { ApolloProvider } from "react-apollo";
-
 const client = new ApolloClient({
   uri: "http://backend.lvh.me/graphql",
   cache: new InMemoryCache(),

@@ -1,9 +1,6 @@
 import React from "react";
 import { Button, TextField, Container } from "@material-ui/core";
 
-// import { gql } from "apollo-boost";
-// import { Mutation } from "react-apollo";
-
 import { gql, useMutation } from "@apollo/client";
 
 const CHANGE_USERNAME = gql`
