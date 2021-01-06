@@ -9,7 +9,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     origins ENV["ALLOWED_HOSTS"] ? ENV["ALLOWED_HOSTS"].split(",").map(&:strip) : ""
 
-    resource "/zendesk/sso", headers: :any, methods: :post, expose: %w[Authorization]
+    resource "/", headers: :any, methods: :post, expose: %w[Authorization]
     resource "/graphql", headers: %w[Authorization], methods: :any, expose: %w[Authorization], max_age: 3600,
              credentials: true
   end
