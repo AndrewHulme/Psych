@@ -14,7 +14,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "baseUrl": "src",
+    "jsx": "react",
+    "plugins": [
+      { "name": "typescript-plugin-css-modules" },
+      { "transform": "transformer-module" },
+    ]
   },
-  "include": ["src"]
+  "include": ["src/**/*"]
 }
