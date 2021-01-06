@@ -7,6 +7,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 import { useSelector } from "react-redux";
 import { IRootState } from "../store/index";
@@ -26,9 +28,20 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function ButtonAppBar() {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+
   const classes = useStyles();
 
   const user = useSelector((state: IRootState) => state.user);
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div className={classes.root}>
@@ -46,7 +59,34 @@ export default function ButtonAppBar() {
             Psych?!
           </Typography>
           {user.name !== "Player" && (
-            <Button color="inherit">{user.name}</Button>
+            <div>
+              <IconButton
+                color="inherit"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+              >
+                {user.name}
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Change Username</MenuItem>
+              </Menu>
+            </div>
           )}
         </Toolbar>
       </AppBar>
