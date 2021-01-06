@@ -45,10 +45,8 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Psych?!
           </Typography>
-          {user.name !== "Player" ? (
+          {user.name !== "Player" && (
             <Button color="inherit">{user.name}</Button>
-          ) : (
-            ""
           )}
         </Toolbar>
       </AppBar>
