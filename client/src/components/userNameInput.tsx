@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
 import { Button, TextField, Container } from "@material-ui/core";
 
 import { gql, useMutation } from "@apollo/client";
@@ -46,20 +48,22 @@ function UserNameInput() {
           onChange={(e) => updateName(e.target.value)}
         />
 
-        <Button
-          style={{
-            maxWidth: "400px",
-            maxHeight: "100px",
-            minWidth: "400px",
-            minHeight: "100px",
-            fontSize: "35px",
-          }}
-          color="primary"
-          variant="outlined"
-          onClick={() => handleClick()}
-        >
-          SUBMIT!
-        </Button>
+        <Link to={"/"}>
+          <Button
+            style={{
+              maxWidth: "400px",
+              maxHeight: "100px",
+              minWidth: "400px",
+              minHeight: "100px",
+              fontSize: "35px",
+            }}
+            color="primary"
+            variant="outlined"
+            onClick={() => handleClick()}
+          >
+            SUBMIT!
+          </Button>
+        </Link>
       </Container>
     </div>
   );

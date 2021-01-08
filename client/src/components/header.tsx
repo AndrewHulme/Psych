@@ -10,6 +10,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
+import { Link } from "react-router-dom";
+
 import { useSelector } from "react-redux";
 import { IRootState } from "../store/index";
 
@@ -55,7 +57,14 @@ export default function ButtonAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
+          <Typography
+            variant="h6"
+            className={classes.title}
+            color="inherit"
+            style={{ textDecoration: "none" }}
+            component={Link}
+            to="/"
+          >
             Psych?!
           </Typography>
           {user.name !== "Player" && (
@@ -84,7 +93,18 @@ export default function ButtonAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Change Username</MenuItem>
+                {/* <Link
+                  to={"/inputusername"}
+                  style={{ textDecoration: "none", color: "#000000" }}
+                > */}
+                <MenuItem
+                  component={Link}
+                  to="/inputusername"
+                  onClick={handleClose}
+                >
+                  Change Username
+                </MenuItem>
+                {/* </Link> */}
               </Menu>
             </div>
           )}
