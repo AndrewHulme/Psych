@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { Button, Grid, Container } from "@material-ui/core";
-import { Link } from "react-router-dom";
-
-import UserNameInput from "./userNameInput";
+import { Link, Redirect } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { updateUser } from "../actions/userActions";
@@ -40,7 +38,7 @@ function Homepage() {
   return (
     <div>
       {data.currentUser.name === "Player" ? (
-        <UserNameInput />
+        <Redirect to="/inputusername" />
       ) : (
         <div className="homepage">
           <Container component="main" maxWidth="xs">

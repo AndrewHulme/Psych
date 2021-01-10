@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import { Button, TextField, Container } from "@material-ui/core";
 
 import { gql, useMutation } from "@apollo/client";
@@ -21,11 +23,15 @@ function UserNameInput() {
 
   const [name, updateName] = useState("");
 
-  function handleClick() {
+  const history = useHistory();
+
+  async function handleClick() {
     console.log("Username Submission!");
-    changeUsername({ variables: { name: name } });
+    await changeUsername({ variables: { name: name } });
 
     console.log(data);
+
+    history.push("/");
   }
 
   return (
