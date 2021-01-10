@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { Button, TextField, Container } from "@material-ui/core";
 
@@ -23,11 +23,15 @@ function UserNameInput() {
 
   const [name, updateName] = useState("");
 
-  function handleClick() {
+  const history = useHistory();
+
+  async function handleClick() {
     console.log("Username Submission!");
-    changeUsername({ variables: { name: name } });
+    await changeUsername({ variables: { name: name } });
 
     console.log(data);
+
+    history.push("/");
   }
 
   return (
@@ -48,22 +52,20 @@ function UserNameInput() {
           onChange={(e) => updateName(e.target.value)}
         />
 
-        <Link to={"/"}>
-          <Button
-            style={{
-              maxWidth: "400px",
-              maxHeight: "100px",
-              minWidth: "400px",
-              minHeight: "100px",
-              fontSize: "35px",
-            }}
-            color="primary"
-            variant="outlined"
-            onClick={() => handleClick()}
-          >
-            SUBMIT!
-          </Button>
-        </Link>
+        <Button
+          style={{
+            maxWidth: "400px",
+            maxHeight: "100px",
+            minWidth: "400px",
+            minHeight: "100px",
+            fontSize: "35px",
+          }}
+          color="primary"
+          variant="outlined"
+          onClick={() => handleClick()}
+        >
+          SUBMIT!
+        </Button>
       </Container>
     </div>
   );

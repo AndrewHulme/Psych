@@ -93,10 +93,6 @@ export default function ButtonAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                {/* <Link
-                  to={"/inputusername"}
-                  style={{ textDecoration: "none", color: "#000000" }}
-                > */}
                 <MenuItem
                   component={Link}
                   to="/inputusername"
@@ -104,7 +100,6 @@ export default function ButtonAppBar() {
                 >
                   Change Username
                 </MenuItem>
-                {/* </Link> */}
               </Menu>
             </div>
           )}
