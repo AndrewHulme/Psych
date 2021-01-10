@@ -4,18 +4,11 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import { createStore } from "redux";
-import allReducers from "./reducers/index";
 import { Provider } from "react-redux";
 
 import { apolloClient } from 'utils/apollo'
 import { ApolloProvider } from "@apollo/client";
-
-const store = createStore(
-  allReducers,
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-);
+import store from "store/store";
 
 ReactDOM.render(
   <React.StrictMode>
