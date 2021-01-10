@@ -8,14 +8,8 @@ import { createStore } from "redux";
 import allReducers from "./reducers/index";
 import { Provider } from "react-redux";
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import { Hostname } from './utils/constants'
-
-const client = new ApolloClient({
-  uri: `${Hostname}/graphql`,
-  cache: new InMemoryCache(),
-  credentials: "include",
-});
+import { apolloClient } from 'utils/apollo'
+import { ApolloProvider } from "@apollo/client";
 
 const store = createStore(
   allReducers,
@@ -26,7 +20,7 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ApolloProvider client={client}>
+      <ApolloProvider client={apolloClient}>
         <App />
       </ApolloProvider>
     </Provider>
