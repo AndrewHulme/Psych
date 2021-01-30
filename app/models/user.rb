@@ -37,10 +37,6 @@
 #  fk_rails_...  (room_id => rooms.id)
 #
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
   MIN_USERNAME_LENGTH = 2
   MAX_USERNAME_LENGTH = 30
 
@@ -60,6 +56,8 @@ class User < ApplicationRecord
 
   delegate :current_round, to: :room
 
+  before_validation :confirm, on: :create
+
   def to_game_state
     state = slice(:id, :name, :ready_for_next_round)
 
@@ -72,5 +70,24 @@ class User < ApplicationRecord
 
   def password_required?
     false
+  end
+
+  def change_email
+    email
+  end
+
+  def change_email=(value)
+    return if value.blank?
+
+    skip_reconfirmation!
+    self.email = value
+  end
+
+  # do nothing
+  def after_confirmation
+  end
+
+  # do nothing
+  def send_devise_notification(notification, *args)
   end
 end
