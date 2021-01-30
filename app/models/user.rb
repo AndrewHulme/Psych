@@ -65,4 +65,12 @@ class User < ApplicationRecord
 
     state.with_indifferent_access
   end
+
+  def valid_password?(password)
+    true
+  end
+
+  def password_required?
+    false
+  end
 end
