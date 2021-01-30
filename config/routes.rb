@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   mount RailsAdmin::Engine => "/admin", as: "rails_admin"
 
   default_url_options(protocol: (Rails.env.production? ? "https" : "http"), host: ENV["HOSTNAME"])
