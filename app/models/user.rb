@@ -52,7 +52,8 @@ class User < ApplicationRecord
   validates :name, length: { minimum: MIN_USERNAME_LENGTH, maximum: MAX_USERNAME_LENGTH }
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
+         :recoverable, :rememberable,
+         # :validatable,
          :confirmable, :trackable,
          :jwt_authenticatable, jwt_revocation_strategy: self
 
@@ -64,6 +65,10 @@ class User < ApplicationRecord
     state = slice(:id, :name, :ready_for_next_round)
 
     state.with_indifferent_access
+  end
+
+  def filtered_params
+    attributes.slice("id", "name")
   end
 
   def valid_password?(password)

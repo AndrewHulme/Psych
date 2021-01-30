@@ -4,5 +4,5 @@ class ApplicationController < ActionController::API
   include ActionController::RequestForgeryProtection
   include AuthHelper
 
-  # respond_to :json
+  respond_to :json
 end
