@@ -7,13 +7,14 @@ RSpec.describe Mutations::Rooms::StartGameMutation, type: :request do
     let!(:user2) { create :user, room: room }
     let!(:user3) { create :user, room: room }
     let!(:question) { create :question }
+    let(:current_user) { host }
+    let(:headers) { user_auth_headers(current_user) }
 
     before do
-      set_current_user(host)
       room.set_status
     end
 
-    subject { post "/graphql", params: { query: query }, as: :json }
+    subject { post "/graphql", params: { query: query }, headers: headers, as: :json }
 
     context "when room has enough players and has status ready_to_start" do
       it "starts the game" do
@@ -74,7 +75,7 @@ RSpec.describe Mutations::Rooms::StartGameMutation, type: :request do
     end
 
     context "when the current_user is not the host of the room" do
-      before { set_current_user(user3) }
+      let(:current_user) { user3 }
 
       it "returns an error" do
         expect(room.status).to eq("ready_to_start")

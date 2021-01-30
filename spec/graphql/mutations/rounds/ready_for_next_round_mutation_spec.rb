@@ -16,10 +16,9 @@ RSpec.describe Mutations::Rounds::ReadyForNextRoundMutation, type: :request do
     let(:users) { [host, user2, user3] }
     let!(:answers) { users.map { |user| create(:answer, user: user, round: round) }}
     let!(:votes) { answers.map { |answer| create :vote, user: answer.user, answer: answer }}
+    let(:headers) { user_auth_headers(host) }
 
-    before { set_current_user(host) }
-
-    subject { post "/graphql", params: { query: query }, as: :json }
+    subject { post "/graphql", params: { query: query }, headers: headers, as: :json }
 
     context "when answers in the current_round have all been voted on" do
       it "allows the user to state that they are ready to start the next round" do

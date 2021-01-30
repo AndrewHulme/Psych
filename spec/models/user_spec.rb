@@ -40,7 +40,6 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   context "validations" do
-    it { should validate_uniqueness_of(:visitor_key).case_insensitive }
   end
 
   context "relations" do

@@ -46,11 +46,11 @@ class User < ApplicationRecord
   has_many :answers
   has_many :votes
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  validates :visitor_key, uniqueness: { case_sensitive: false }, allow_nil: true
+  # validates :visitor_key, uniqueness: { case_sensitive: false }, allow_nil: true
   validates :name, length: { minimum: MIN_USERNAME_LENGTH, maximum: MAX_USERNAME_LENGTH }
 
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable,
          # :validatable,

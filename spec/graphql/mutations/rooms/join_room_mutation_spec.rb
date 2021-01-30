@@ -5,21 +5,21 @@ RSpec.describe Mutations::Rooms::JoinRoomMutation, type: :request do
     let!(:room) { create :room }
     let(:host) { room.host }
     let(:password) { room.password }
+    let(:current_user) { create :user }
+    let(:headers) { user_auth_headers(current_user) }
 
-    subject { post "/graphql", params: { query: query }, as: :json }
+    subject { post "/graphql", params: { query: query }, headers: headers, as: :json }
 
     context "when password is valid" do
       it "adds the current_user to the room" do
         subject
 
-        user = User.last
         res = json_response["data"]["joinRoom"]
-
         expect(res["room"]["id"].to_i).to eq(room.id)
         expect(res["room"]["status"]).to eq("awaiting_players")
         expect(res["room"]["users"].count).to eq(2)
-        expect(res["room"]["users"][0]["id"].to_i).to eq(host.id)
-        expect(res["room"]["users"][1]["id"].to_i).to eq(user.id)
+        expect(res["room"]["users"][0]["id"].to_i).to eq(current_user.id)
+        expect(res["room"]["users"][1]["id"].to_i).to eq(host.id)
         expect(res["status"]).to eq("ok")
         expect(res["errors"]).to eq([])
       end
@@ -37,15 +37,14 @@ RSpec.describe Mutations::Rooms::JoinRoomMutation, type: :request do
           expect(room.users.count).to eq(2)
 
           subject
-          user = User.last
 
           res = json_response["data"]["joinRoom"]
           expect(res["room"]["id"].to_i).to eq(room.id)
           expect(res["room"]["status"]).to eq("ready_to_start")
           expect(res["room"]["users"].count).to eq(3)
-          expect(res["room"]["users"][0]["id"].to_i).to eq(host.id)
+          expect(res["room"]["users"][0]["id"].to_i).to eq(current_user.id)
           expect(res["room"]["users"][1]["id"].to_i).to eq(second_player.id)
-          expect(res["room"]["users"][2]["id"].to_i).to eq(user.id)
+          expect(res["room"]["users"][2]["id"].to_i).to eq(host.id)
           expect(res["status"]).to eq("ok")
           expect(res["errors"]).to eq([])
         end
@@ -59,7 +58,6 @@ RSpec.describe Mutations::Rooms::JoinRoomMutation, type: :request do
         subject
 
         res = json_response["data"]["joinRoom"]
-
         expect(res["room"]).to be_nil
         expect(res["status"]).to eq("failed")
         expect(res["errors"]).to eq(["Password is invalid."])

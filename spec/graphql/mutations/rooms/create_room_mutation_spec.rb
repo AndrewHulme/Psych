@@ -5,11 +5,14 @@ RSpec.describe Mutations::Rooms::CreateRoomMutation, type: :request do
     let(:data) { build :room }
     let(:name) { data.name }
     let(:password) { data.password }
+    let(:current_user) { create :user }
+    let(:headers) { user_auth_headers(current_user) }
 
-    subject { post "/graphql", params: { query: query }, as: :json }
+    subject { post "/graphql", params: { query: query }, headers: headers, as: :json }
 
     it "creates and returns a new room" do
       subject
+      current_user.reload
 
       expect(Room.count).to eq(1)
       expect(Room.first.host).to eq(current_user)

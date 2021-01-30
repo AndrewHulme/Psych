@@ -16,10 +16,9 @@ RSpec.describe Mutations::Rounds::SubmitVoteMutation, type: :request do
     let!(:answer1) { create :answer, round: round, user: host }
     let!(:answer2) { create :answer, round: round, user: user2 }
     let!(:answer3) { create :answer, round: round, user: user3 }
+    let(:headers) { user_auth_headers(host) }
 
-    before { set_current_user(host) }
-
-    subject { post "/graphql", params: { query: query }, as: :json }
+    subject { post "/graphql", params: { query: query }, headers: headers, as: :json }
 
     context "when answer_id is valid" do
       let!(:answer_id) { answer2.id }

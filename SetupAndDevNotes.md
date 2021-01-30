@@ -100,7 +100,8 @@ auth changes
   end
 
 - ensure that users are created and found no prob
-
 - ensure that tokens work from frontend
+
+- add specs to ensure that token-less requests are handled correctly for protected routes (response should contain error)
 
 Can look into refresh tokens at a later date... https://gist.github.com/jesster2k10/e626ee61d678350a21a9d3e81da2493e

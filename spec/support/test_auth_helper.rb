@@ -6,18 +6,18 @@ module TestAuthHelper
     cookies.delete "visitor_key"
   end
 
-  def current_user
-    @current_user ||= User.find_by(visitor_key: cookies[:visitor_key])
-  end
+  # def current_user
+  #   @current_user ||= User.find_by(visitor_key: cookies[:visitor_key])
+  # end
 
-  def create_user_session
-    get "/"
-    User.last
-  end
+  # def create_user_session
+  #   get "/"
+  #   User.last
+  # end
 
-  def set_current_user(user)
-    cookies[:visitor_key] = user.visitor_key
-  end
+  # def set_current_user(user)
+  #   cookies[:visitor_key] = user.visitor_key
+  # end
 
   def user_auth_headers(user)
     headers = { "Accept" => "application/json", "Content-Type" => "application/json" }

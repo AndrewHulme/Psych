@@ -2,12 +2,13 @@ require "rails_helper"
 
 RSpec.describe Types::QueryType, type: :request do
   describe "query to get the current user" do
-    subject { post "/graphql", params: { query: current_user_query }, as: :json }
+    let!(:user) { create :user }
+    let(:headers) { user_auth_headers(user) }
+
+    subject { post "/graphql", params: { query: current_user_query }, headers: headers, as: :json }
 
     it "returns the current user" do
       subject
-
-      user = User.last
 
       res = json_response["data"]["currentUser"]
       expect(res["id"]).to eq(user.id.to_s)
