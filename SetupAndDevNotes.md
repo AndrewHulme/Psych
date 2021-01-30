@@ -84,3 +84,19 @@ actioncable
 - ensure that users can leave a game mid way through, and maybe even rejoin.
 
 
+
+auth changes
+- install jwt
+- install devise
+- install devise_jwt
+- ensure that confirmations & passwords are not required
+
+  def valid_password?(password)
+    (password.blank? && !admin?) ? true : super
+  end
+
+  def password_required?
+    (new_record? && !admin?) ? false : super
+  end
+
+- ensure that tokens work from frontend
