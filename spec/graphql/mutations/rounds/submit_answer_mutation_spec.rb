@@ -12,10 +12,9 @@ RSpec.describe Mutations::Rounds::SubmitAnswerMutation, type: :request do
     let(:host) { room.host }
     let!(:user2) { create :user, room: room }
     let!(:user3) { create :user, room: room }
+    let(:headers) { user_auth_headers(host) }
 
-    before { set_current_user(host) }
-
-    subject { post "/graphql", params: { query: query }, as: :json }
+    subject { post "/graphql", params: { query: query }, headers: headers, as: :json }
 
     context "when answer is present" do
       let!(:answer) { "A valid answer" }

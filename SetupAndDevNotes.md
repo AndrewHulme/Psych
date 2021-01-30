@@ -84,3 +84,24 @@ actioncable
 - ensure that users can leave a game mid way through, and maybe even rejoin.
 
 
+
+auth changes
+- install jwt
+- install devise
+- install devise_jwt
+- ensure that confirmations & passwords are not required
+
+  def valid_password?(password)
+    (password.blank? && !admin?) ? true : super
+  end
+
+  def password_required?
+    (new_record? && !admin?) ? false : super
+  end
+
+- ensure that users are created and found no prob
+- ensure that tokens work from frontend
+
+- add specs to ensure that token-less requests are handled correctly for protected routes (response should contain error)
+
+Can look into refresh tokens at a later date... https://gist.github.com/jesster2k10/e626ee61d678350a21a9d3e81da2493e

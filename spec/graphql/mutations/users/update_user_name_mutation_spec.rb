@@ -3,22 +3,23 @@ require "rails_helper"
 RSpec.describe Mutations::Users::UpdateUserNameMutation, type: :request do
   describe "#resolve" do
     let(:username) { "a" * (User::MAX_USERNAME_LENGTH) }
+    let(:current_user) { create :user }
+    let(:headers) { user_auth_headers(current_user) }
 
-    subject { post "/graphql", params: { query: query }, as: :json }
+    subject { post "/graphql", params: { query: query }, headers: headers, as: :json }
 
     context "when username is valid" do
       it "set's the user's name to the given username" do
-        user = create_user_session
-
-        expect(user.name).to eq("Player")
+        prev_username = current_user.name
 
         subject
 
-        user.reload
-        expect(user.name).to eq(username)
+        current_user.reload
+        expect(current_user.name).to eq(username)
+        expect(current_user.name).to_not eq(prev_username)
 
         res = json_response["data"]["updateUserName"]
-        expect(res["user"]["id"].to_i).to eq(user.id)
+        expect(res["user"]["id"].to_i).to eq(current_user.id)
         expect(res["user"]["name"]).to eq(username)
         expect(res["status"]).to eq("ok")
         expect(res["errors"]).to eq([])
@@ -29,12 +30,12 @@ RSpec.describe Mutations::Users::UpdateUserNameMutation, type: :request do
       let(:username) { "a" * (User::MAX_USERNAME_LENGTH + 1) }
 
       it "returns an error" do
-        user = create_user_session
+        prev_username = current_user.name
 
         subject
 
-        user.reload
-        expect(user.name).to eq("Player")
+        current_user.reload
+        expect(current_user.name).to eq(prev_username)
 
         res = json_response["data"]["updateUserName"]
         expect(res["user"]).to be_nil
