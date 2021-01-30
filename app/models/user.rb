@@ -37,6 +37,8 @@
 #  fk_rails_...  (room_id => rooms.id)
 #
 class User < ApplicationRecord
+  include Devise::JWT::RevocationStrategies::Allowlist
+
   MIN_USERNAME_LENGTH = 2
   MAX_USERNAME_LENGTH = 30
 
